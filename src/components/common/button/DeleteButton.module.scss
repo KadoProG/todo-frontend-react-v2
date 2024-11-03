@@ -1,0 +1,28 @@
+.deleteButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background: var(--color-error);
+  min-height: 32px;
+  &:hover {
+    background: #ebd5d5;
+  }
+  &:disabled {
+    & * {
+      opacity: 0.3;
+    }
+  }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .deleteButton {
+    & img {
+      filter: invert(1);
+    }
+  }
+}
