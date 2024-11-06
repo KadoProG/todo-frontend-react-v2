@@ -1,7 +1,9 @@
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { useAuthContext } from '@/contexts/authContext';
-import { HomePage } from '@/pages/HomePage';
-import { LoginPage } from '@/pages/LoginPage';
+import { HomePage } from '@/pages/home/HomePage';
+import { LoginPage } from '@/pages/login/LoginPage';
+import { TodoDetailPage } from '@/pages/todo/[id]/TodoDetailPage';
+import { TodoPage } from '@/pages/todo/TodoPage';
 import { AuthenticatedOutlet } from '@/routes/outlet/AuthenticatedOutlet';
 import { UnauthenticatedOutlet } from '@/routes/outlet/UnauthenticatedOutlet';
 import React from 'react';
@@ -20,7 +22,11 @@ export const MyRouter: React.FC = () => {
         {/* 誰でも閲覧できるルーティング */}
         <Route path="/" element={<HomePage />} />
 
-        <Route element={<AuthenticatedOutlet />}>{/* ログイン済みのルーティング */}</Route>
+        <Route element={<AuthenticatedOutlet />}>
+          {/* ログイン済みのルーティング */}
+          <Route path="/todo/:id" element={<TodoDetailPage />} />
+          <Route path="/todo" element={<TodoPage />} />
+        </Route>
 
         <Route element={<UnauthenticatedOutlet />}>
           {/* 未ログインのルーティング */}

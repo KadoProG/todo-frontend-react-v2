@@ -5,6 +5,7 @@ export const HomePage: React.FC = () => (
   <div>
     <h1>Home Page</h1>
     <p>ホームページです</p>
-    <Button href="/login">ログインする</Button>
+    <Button href="/todo">ToDoリスト</Button>
+    <Button href="/login">ログイン</Button>
   </div>
 );
