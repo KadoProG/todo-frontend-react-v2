@@ -46,13 +46,30 @@ export const TodoPage: React.FC = () => {
           </>
         )}
         {todos.map((todo) => (
-          <div key={todo.id} style={{ display: 'flex', gap: 4 }}>
-            <Link to={`/todo/${todo.id}`}>{todo.title}</Link>-{' '}
-            {todo.isDone ? 'Complete' : 'Incomplete'}
-            <Button onClick={() => handleUpdateTodo(todo.id)} disabled={isHandleLoading}>
-              {todo.isDone ? 'Incomplete' : 'Complete'}
-            </Button>
-            <DeleteButton onClick={() => handleDeleteTodo(todo.id)} disabled={isHandleLoading} />
+          <div key={todo.id}>
+            <div style={{ display: 'flex', gap: 4 }}>
+              <Link to={`/todo/${todo.id}`}>{todo.title}</Link>-{' '}
+              {todo.isDone ? 'Complete' : 'Incomplete'}
+              <Button onClick={() => handleUpdateTodo(todo.id)} disabled={isHandleLoading}>
+                {todo.isDone ? 'Incomplete' : 'Complete'}
+              </Button>
+              <DeleteButton onClick={() => handleDeleteTodo(todo.id)} disabled={isHandleLoading} />
+            </div>
+            <div style={{ paddingLeft: 8 }}>
+              {todo.children?.map((child) => (
+                <div key={child.id} style={{ display: 'flex', gap: 4 }}>
+                  <Link to={`/todo/${child.id}`}>{child.title}</Link>-{' '}
+                  {child.isDone ? 'Complete' : 'Incomplete'}
+                  <Button onClick={() => handleUpdateTodo(child.id)} disabled={isHandleLoading}>
+                    {child.isDone ? 'Incomplete' : 'Complete'}
+                  </Button>
+                  <DeleteButton
+                    onClick={() => handleDeleteTodo(child.id)}
+                    disabled={isHandleLoading}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
