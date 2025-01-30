@@ -2,7 +2,7 @@ import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { useAuthContext } from '@/contexts/authContext';
 import { HomePage } from '@/pages/home/HomePage';
 import { LoginPage } from '@/pages/login/LoginPage';
-import { TodoDetailPage } from '@/pages/todo/[id]/TodoDetailPage';
+import { TodoDetailPage } from '@/pages/todo/[id]';
 import { TodoPage } from '@/pages/todo/TodoPage';
 import { AuthenticatedOutlet } from '@/routes/outlet/AuthenticatedOutlet';
 import { UnauthenticatedOutlet } from '@/routes/outlet/UnauthenticatedOutlet';
