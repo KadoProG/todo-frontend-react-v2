@@ -1,3 +1,4 @@
+import { AppLayout } from '@/components/AppLayout';
 import { Button } from '@/components/common/button/Button';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { useSnackbarContext } from '@/components/common/feedback/snackbarContext';
@@ -58,7 +59,7 @@ export const TodoDetailPage: React.FC = () => {
   }, [id, mutate, showSnackbar]);
 
   return (
-    <div>
+    <AppLayout>
       <h1>Todo Detail</h1>
       <div style={{ display: 'flex', flexFlow: 'column', gap: 8, padding: 8 }}>
         {isLoading && (
@@ -88,6 +89,6 @@ export const TodoDetailPage: React.FC = () => {
         }
       </div>
       <Link to="/todo">前のページに戻る</Link>
-    </div>
+    </AppLayout>
   );
 };
