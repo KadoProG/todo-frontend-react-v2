@@ -43,6 +43,7 @@ export const useTodoList = () => {
         '/api/v1/tasks',
         {
           title,
+          is_public: false,
         },
         {
           headers: {

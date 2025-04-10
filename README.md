@@ -1,6 +1,6 @@
 # Todo App (frontend)
 
-https://github.com/KadoProG/laravel-todo-app
+https://github.com/KadoProG/laravel-todo-app-v2
 
 に対するフロントエンドですね
 
