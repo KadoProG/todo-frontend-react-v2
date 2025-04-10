@@ -51,16 +51,35 @@ export const TodoPage: React.FC = () => {
           )}
           {todos.map((todo) => (
             <div key={todo.id}>
-              <div style={{ display: 'flex', gap: 4 }}>
-                <Link to={`/todo/${todo.id}`}>{todo.title}</Link>-{' '}
-                {todo.is_done ? '完了' : '未完了'}
-                <Button onClick={() => handleUpdateTodo(todo.id)} disabled={isHandleLoading}>
-                  {todo.is_done ? 'Incomplete' : 'Complete'}
-                </Button>
-                <DeleteButton
-                  onClick={() => handleDeleteTodo(todo.id)}
-                  disabled={isHandleLoading}
-                />
+              <div style={{ border: '1px solid var(--divider)', padding: 8 }}>
+                <p>
+                  <Link to={`/todo/${todo.id}`}>{todo.title}</Link>
+                </p>
+                <p>
+                  <small>{todo.description}</small>
+                </p>
+                <p>ステータス：{todo.is_done ? '完了' : '未完了'}</p>
+                {!todo.is_public && <p style={{ color: 'blue' }}>プライベートタスク</p>}
+                {todo.is_public && <p style={{ color: 'green' }}>公開タスク</p>}
+                {todo.assigned_users.length !== 0 && (
+                  <p>
+                    担当者：{todo.assigned_users?.map((assinedUser) => assinedUser.name).join(',')}
+                  </p>
+                )}
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 8,
+                  }}
+                >
+                  <Button onClick={() => handleUpdateTodo(todo.id)} disabled={isHandleLoading}>
+                    {todo.is_done ? '未完了にする' : '完了にする'}
+                  </Button>
+                  <DeleteButton
+                    onClick={() => handleDeleteTodo(todo.id)}
+                    disabled={isHandleLoading}
+                  />
+                </div>
               </div>
             </div>
           ))}

@@ -54,7 +54,7 @@ export const useTodoList = () => {
       const todo = todos.find((todo) => todo.id === id);
       if (!todo) return;
 
-      const newTodo = { ...todo, isDone: !todo.is_done };
+      const newTodo = { ...todo, is_done: !todo.is_done };
 
       setIsHandleLoading(true);
       await axios.put(`/v1/tasks/${id}`, newTodo, {

@@ -497,7 +497,7 @@
             "$ref": "#\/components\/schemas\/UserResource"
           },
           "assigned_users": {
-            "type": ["array", "null"],
+            "type": "array",
             "items": {
               "$ref": "#\/components\/schemas\/UserResource"
             }

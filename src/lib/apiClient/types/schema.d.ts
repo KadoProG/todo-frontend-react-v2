@@ -156,7 +156,7 @@ export interface components {
       /** Format: date-time */
       updated_at: string | null;
       created_user: components['schemas']['UserResource'];
-      assigned_users: components['schemas']['UserResource'][] | null;
+      assigned_users: components['schemas']['UserResource'][];
     };
     /** UserResource */
     UserResource: {
