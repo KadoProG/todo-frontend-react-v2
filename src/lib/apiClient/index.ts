@@ -13,7 +13,7 @@ export const apiClient = createClient<
     };
   }
 >({
-  baseUrl: `${import.meta.env.VITE_BACKEND_URL}/api`,
+  baseUrl: `${import.meta.env.VITE_BACKEND_URL}`,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',

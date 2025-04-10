@@ -18,19 +18,23 @@ export const TodoPage: React.FC = () => {
     handleDeleteTodo,
   } = useTodoList();
 
+  // const { users } = useUsers();
+
   return (
     <AppLayout>
       <div style={{ padding: 8 }}>
         <h1>Supabase ToDo App</h1>
         <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            control={control}
-            name="title"
-            placeholder="Add new todo"
-            required
-            type="text"
-            style={{ flex: 1 }}
-          />
+          <div>
+            <TextField
+              control={control}
+              name="title"
+              placeholder="Add new todo"
+              required
+              type="text"
+              style={{ flex: 1 }}
+            />
+          </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button onClick={handleAddTodo} disabled={isHandleLoading}>
               Add

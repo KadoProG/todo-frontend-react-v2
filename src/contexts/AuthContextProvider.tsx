@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
 import { AuthContextType, authContext } from '@/contexts/authContext';
-import axios from '@/libs/axios';
+import { apiClient } from '@/lib/apiClient';
 import React from 'react';
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (props) => {
@@ -18,11 +18,16 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (pro
     }
 
     try {
-      const response = await axios.get<User>('/v1/me', {
+      const response = await apiClient.GET('/v1/users/me', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setUser(response.data);
-      setStatus('authenticated');
+      if (response.data?.user) {
+        setUser(response.data?.user);
+        setStatus('authenticated');
+      } else {
+        setUser(null);
+        setStatus('unauthenticated');
+      }
     } catch (error) {
       console.error(error); // eslint-disable-line no-console
       setUser(null);
