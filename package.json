@@ -14,7 +14,7 @@
     "prepare": "husky",
     "schema": "npm run get:api && npm run schema:generate",
     "get:api": "curl -o .docs/api.json http://localhost:8080/docs/api.json",
-    "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts"
+    "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts && prettier --write .docs/api.json"
   },
   "dependencies": {
     "axios": "^1.7.7",

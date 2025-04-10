@@ -105,6 +105,22 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/v1/tasks/{task}/actions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['actions.index'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/v1/users/me': {
     parameters: {
       query?: never;
@@ -502,6 +518,30 @@ export interface operations {
         };
         content: {
           'application/json': null;
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
+    };
+  };
+  'actions.index': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The task ID */
+        task: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
         };
       };
       401: components['responses']['AuthenticationException'];

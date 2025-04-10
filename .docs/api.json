@@ -420,6 +420,41 @@
         }
       }
     },
+    "\/v1\/tasks\/{task}\/actions": {
+      "get": {
+        "operationId": "actions.index",
+        "tags": ["TaskAction"],
+        "parameters": [
+          {
+            "name": "task",
+            "in": "path",
+            "required": true,
+            "description": "The task ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#\/components\/responses\/ModelNotFoundException"
+          },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          }
+        }
+      }
+    },
     "\/v1\/users\/me": {
       "get": {
         "operationId": "user.me",
