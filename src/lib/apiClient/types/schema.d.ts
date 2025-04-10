@@ -409,7 +409,9 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['TaskResource'];
+          'application/json': {
+            task: components['schemas']['TaskResource'];
+          };
         };
       };
       401: components['responses']['AuthenticationException'];
@@ -434,7 +436,9 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['TaskResource'];
+          'application/json': {
+            task: components['schemas']['TaskResource'];
+          };
         };
       };
       401: components['responses']['AuthenticationException'];
@@ -469,7 +473,9 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['TaskResource'];
+          'application/json': {
+            task: components['schemas']['TaskResource'];
+          };
         };
       };
       401: components['responses']['AuthenticationException'];

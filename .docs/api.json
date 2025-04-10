@@ -251,7 +251,13 @@
             "content": {
               "application\/json": {
                 "schema": {
-                  "$ref": "#\/components\/schemas\/TaskResource"
+                  "type": "object",
+                  "properties": {
+                    "task": {
+                      "$ref": "#\/components\/schemas\/TaskResource"
+                    }
+                  },
+                  "required": ["task"]
                 }
               }
             }
@@ -287,7 +293,13 @@
             "content": {
               "application\/json": {
                 "schema": {
-                  "$ref": "#\/components\/schemas\/TaskResource"
+                  "type": "object",
+                  "properties": {
+                    "task": {
+                      "$ref": "#\/components\/schemas\/TaskResource"
+                    }
+                  },
+                  "required": ["task"]
                 }
               }
             }
@@ -351,7 +363,13 @@
             "content": {
               "application\/json": {
                 "schema": {
-                  "$ref": "#\/components\/schemas\/TaskResource"
+                  "type": "object",
+                  "properties": {
+                    "task": {
+                      "$ref": "#\/components\/schemas\/TaskResource"
+                    }
+                  },
+                  "required": ["task"]
                 }
               }
             }
