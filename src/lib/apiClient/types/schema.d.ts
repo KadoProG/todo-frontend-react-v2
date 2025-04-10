@@ -76,7 +76,7 @@ export interface paths {
       cookie?: never;
     };
     /** タスク一覧取得 */
-    get: operations['tasks.index'];
+    get: operations['task.index'];
     put?: never;
     /** 新規タスク作成 */
     post: operations['tasks.store'];
@@ -131,6 +131,23 @@ export interface paths {
     };
     /** ユーザ一覧取得 */
     get: operations['user.index'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v1/users/me/tasks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 自身のタスク一覧取得 */
+    get: operations['userMeTask.index'];
     put?: never;
     post?: never;
     delete?: never;
@@ -346,7 +363,7 @@ export interface operations {
       };
     };
   };
-  'tasks.index': {
+  'task.index': {
     parameters: {
       query?: never;
       header?: never;
@@ -524,6 +541,28 @@ export interface operations {
         content: {
           'application/json': {
             users: components['schemas']['UserResource'][];
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+    };
+  };
+  'userMeTask.index': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            tasks: components['schemas']['TaskResource'][];
           };
         };
       };

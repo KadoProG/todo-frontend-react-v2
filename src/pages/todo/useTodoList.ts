@@ -14,15 +14,19 @@ export const useTodoList = () => {
   const [assignedUserIds, setAssignedUserIds] = useState<number[]>([]);
   const [isHandleLoading, setIsHandleLoading] = React.useState<boolean>(false);
 
-  const { isLoading, data, mutate } = useSWR('/v1/tasks', () => apiClient.GET('/v1/tasks'), {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    onError: (error) => {
-      // eslint-disable-next-line
-      console.error(error);
-    },
-  });
+  const { isLoading, data, mutate } = useSWR(
+    '/v1/users/me/tasks',
+    () => apiClient.GET('/v1/users/me/tasks'),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      onError: (error) => {
+        // eslint-disable-next-line
+        console.error(error);
+      },
+    }
+  );
 
   const todos = React.useMemo(() => data?.data?.tasks ?? [], [data]);
 

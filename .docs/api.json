@@ -184,7 +184,7 @@
     },
     "\/v1\/tasks": {
       "get": {
-        "operationId": "tasks.index",
+        "operationId": "task.index",
         "summary": "\u30bf\u30b9\u30af\u4e00\u89a7\u53d6\u5f97",
         "tags": ["Task"],
         "responses": {
@@ -451,6 +451,37 @@
                     }
                   },
                   "required": ["users"]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          }
+        }
+      }
+    },
+    "\/v1\/users\/me\/tasks": {
+      "get": {
+        "operationId": "userMeTask.index",
+        "summary": "\u81ea\u8eab\u306e\u30bf\u30b9\u30af\u4e00\u89a7\u53d6\u5f97",
+        "tags": ["UserMeTask"],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#\/components\/schemas\/TaskResource"
+                      }
+                    }
+                  },
+                  "required": ["tasks"]
                 }
               }
             }
