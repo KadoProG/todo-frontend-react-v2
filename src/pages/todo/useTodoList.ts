@@ -1,6 +1,7 @@
 import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
+import { apiClient } from '@/lib/apiClient';
 import axios from '@/libs/axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 
@@ -10,30 +11,20 @@ export const useTodoList = () => {
       title: '',
     },
   });
+  const [assignedUserIds, setAssignedUserIds] = useState<number[]>([]);
   const [isHandleLoading, setIsHandleLoading] = React.useState<boolean>(false);
 
-  const { isLoading, data, mutate } = useSWR(
-    '/v1/tasks',
-    async () => {
-      const response = await axios.get('/v1/tasks', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
-        },
-      });
-      return response.data;
+  const { isLoading, data, mutate } = useSWR('/v1/tasks', () => apiClient.GET('/v1/tasks'), {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    onError: (error) => {
+      // eslint-disable-next-line
+      console.error(error);
     },
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      onError: (error) => {
-        // eslint-disable-next-line
-        console.error(error);
-      },
-    }
-  );
+  });
 
-  const todos: Todo[] = React.useMemo(() => data ?? [], [data]);
+  const todos = React.useMemo(() => data?.data?.tasks ?? [], [data]);
 
   const handleAddTodo = React.useCallback(async () => {
     handleSubmit(async (formData) => {
@@ -58,12 +49,12 @@ export const useTodoList = () => {
   }, [mutate, reset, handleSubmit]);
 
   const handleUpdateTodo = React.useCallback(
-    async (id: Todo['id']) => {
+    async (id: number) => {
       if (!id) return;
       const todo = todos.find((todo) => todo.id === id);
       if (!todo) return;
 
-      const newTodo: Todo = { ...todo, isDone: !todo.isDone };
+      const newTodo = { ...todo, isDone: !todo.is_done };
 
       setIsHandleLoading(true);
       await axios.put(`/v1/tasks/${id}`, newTodo, {
@@ -78,7 +69,7 @@ export const useTodoList = () => {
   );
 
   const handleDeleteTodo = React.useCallback(
-    async (id: Todo['id']) => {
+    async (id: number) => {
       if (!id) return;
       setIsHandleLoading(true);
       await axios.delete(`/v1/tasks/${id}`, {
@@ -100,5 +91,7 @@ export const useTodoList = () => {
     handleAddTodo,
     handleUpdateTodo,
     handleDeleteTodo,
+    assignedUserIds,
+    setAssignedUserIds,
   };
 };

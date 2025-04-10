@@ -189,11 +189,20 @@
         "tags": ["Task"],
         "responses": {
           "200": {
-            "description": "return TaskResource::collection($tasks);",
+            "description": "",
             "content": {
               "application\/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#\/components\/schemas\/TaskResource"
+                      }
+                    }
+                  },
+                  "required": ["tasks"]
                 }
               }
             }
@@ -467,37 +476,14 @@
           "description": {
             "type": ["string", "null"]
           },
-          "created_user": {
-            "$ref": "#\/components\/schemas\/User"
-          },
-          "assigned_users": {
-            "type": "array",
-            "items": {
-              "$ref": "#\/components\/schemas\/User"
-            }
+          "is_public": {
+            "type": "boolean"
           },
           "is_done": {
             "type": "boolean"
-          }
-        },
-        "required": ["id", "title", "description", "created_user", "assigned_users", "is_done"],
-        "title": "TaskResource"
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
+          },
+          "created_user_id": {
             "type": "integer"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "email_verified_at": {
-            "type": ["string", "null"],
-            "format": "date-time"
           },
           "created_at": {
             "type": ["string", "null"],
@@ -506,10 +492,30 @@
           "updated_at": {
             "type": ["string", "null"],
             "format": "date-time"
+          },
+          "created_user": {
+            "$ref": "#\/components\/schemas\/UserResource"
+          },
+          "assigned_users": {
+            "type": ["array", "null"],
+            "items": {
+              "$ref": "#\/components\/schemas\/UserResource"
+            }
           }
         },
-        "required": ["id", "name", "email", "email_verified_at", "created_at", "updated_at"],
-        "title": "User"
+        "required": [
+          "id",
+          "title",
+          "description",
+          "is_public",
+          "is_done",
+          "created_user_id",
+          "created_at",
+          "updated_at",
+          "created_user",
+          "assigned_users"
+        ],
+        "title": "TaskResource"
       },
       "UserResource": {
         "type": "object",

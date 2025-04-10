@@ -18,8 +18,6 @@ export const TodoPage: React.FC = () => {
     handleDeleteTodo,
   } = useTodoList();
 
-  // const { users } = useUsers();
-
   return (
     <AppLayout>
       <div style={{ padding: 8 }}>
@@ -55,29 +53,14 @@ export const TodoPage: React.FC = () => {
             <div key={todo.id}>
               <div style={{ display: 'flex', gap: 4 }}>
                 <Link to={`/todo/${todo.id}`}>{todo.title}</Link>-{' '}
-                {todo.isDone ? 'Complete' : 'Incomplete'}
+                {todo.is_done ? '完了' : '未完了'}
                 <Button onClick={() => handleUpdateTodo(todo.id)} disabled={isHandleLoading}>
-                  {todo.isDone ? 'Incomplete' : 'Complete'}
+                  {todo.is_done ? 'Incomplete' : 'Complete'}
                 </Button>
                 <DeleteButton
                   onClick={() => handleDeleteTodo(todo.id)}
                   disabled={isHandleLoading}
                 />
-              </div>
-              <div style={{ paddingLeft: 8 }}>
-                {todo.children?.map((child) => (
-                  <div key={child.id} style={{ display: 'flex', gap: 4 }}>
-                    <Link to={`/todo/${child.id}`}>{child.title}</Link>-{' '}
-                    {child.isDone ? 'Complete' : 'Incomplete'}
-                    <Button onClick={() => handleUpdateTodo(child.id)} disabled={isHandleLoading}>
-                      {child.isDone ? 'Incomplete' : 'Complete'}
-                    </Button>
-                    <DeleteButton
-                      onClick={() => handleDeleteTodo(child.id)}
-                      disabled={isHandleLoading}
-                    />
-                  </div>
-                ))}
               </div>
             </div>
           ))}

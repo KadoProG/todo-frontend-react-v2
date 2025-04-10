@@ -19,7 +19,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (pro
 
     try {
       const response = await apiClient.GET('/v1/users/me', {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data?.user) {
         setUser(response.data?.user);

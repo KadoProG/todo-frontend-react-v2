@@ -148,21 +148,15 @@ export interface components {
       id: number;
       title: string;
       description: string | null;
-      created_user: components['schemas']['User'];
-      assigned_users: components['schemas']['User'][];
+      is_public: boolean;
       is_done: boolean;
-    };
-    /** User */
-    User: {
-      id: number;
-      name: string;
-      email: string;
-      /** Format: date-time */
-      email_verified_at: string | null;
+      created_user_id: number;
       /** Format: date-time */
       created_at: string | null;
       /** Format: date-time */
       updated_at: string | null;
+      created_user: components['schemas']['UserResource'];
+      assigned_users: components['schemas']['UserResource'][] | null;
     };
     /** UserResource */
     UserResource: {
@@ -361,13 +355,14 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description return TaskResource::collection($tasks); */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'application/json': {
+            tasks: components['schemas']['TaskResource'][];
+          };
         };
       };
       401: components['responses']['AuthenticationException'];
