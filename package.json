@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "schema": "npm run get:api && npm run schema:generate",
-    "get:api": "source .env && curl -o .docs/api.json ${VITE_BACKEND_URL}/docs/api.json",
+    "get:api": "curl -o .docs/api.json http://localhost:8080/docs/api.json",
     "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts"
   },
   "dependencies": {

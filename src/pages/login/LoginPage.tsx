@@ -24,7 +24,7 @@ export const LoginPage: React.FC = () => {
       e.preventDefault();
       handleSubmit(async (formData) => {
         try {
-          const response = await axios.post('/api/v1/login', formData);
+          const response = await axios.post('/v1/login', formData);
           updateToken(response.data.token);
           showSnackbar({ message: 'ログインしました', type: 'success' });
         } catch (error) {

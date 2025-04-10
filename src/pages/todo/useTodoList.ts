@@ -13,9 +13,9 @@ export const useTodoList = () => {
   const [isHandleLoading, setIsHandleLoading] = React.useState<boolean>(false);
 
   const { isLoading, data, mutate } = useSWR(
-    '/api/v1/tasks',
+    '/v1/tasks',
     async () => {
-      const response = await axios.get('/api/v1/tasks', {
+      const response = await axios.get('/v1/tasks', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
         },
@@ -40,7 +40,7 @@ export const useTodoList = () => {
       const { title } = formData;
       setIsHandleLoading(true);
       await axios.post(
-        '/api/v1/tasks',
+        '/v1/tasks',
         {
           title,
           is_public: false,
@@ -66,7 +66,7 @@ export const useTodoList = () => {
       const newTodo: Todo = { ...todo, isDone: !todo.isDone };
 
       setIsHandleLoading(true);
-      await axios.put(`/api/v1/tasks/${id}`, newTodo, {
+      await axios.put(`/v1/tasks/${id}`, newTodo, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
         },
@@ -81,7 +81,7 @@ export const useTodoList = () => {
     async (id: Todo['id']) => {
       if (!id) return;
       setIsHandleLoading(true);
-      await axios.delete(`/api/v1/tasks/${id}`, {
+      await axios.delete(`/v1/tasks/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
         },

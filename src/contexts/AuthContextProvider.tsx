@@ -18,7 +18,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (pro
     }
 
     try {
-      const response = await axios.get<User>('/api/v1/me', {
+      const response = await axios.get<User>('/v1/me', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data);

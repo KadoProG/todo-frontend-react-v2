@@ -121,6 +121,22 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/v1/users': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['user.index'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -479,5 +495,15 @@ export interface operations {
       401: components['responses']['AuthenticationException'];
       404: components['responses']['ModelNotFoundException'];
     };
+  };
+  'user.index': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: never;
   };
 }
