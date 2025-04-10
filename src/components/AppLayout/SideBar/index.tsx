@@ -24,13 +24,6 @@ export const SideBar: React.FC = () => {
             <div style={{ display: 'flex', gap: 4 }}>
               <Link to={`/todo/${todo.id}`}>{todo.title}</Link>
             </div>
-            <div style={{ paddingLeft: 8 }}>
-              {todo.children?.map((child) => (
-                <div key={child.id} style={{ display: 'flex', gap: 4 }}>
-                  <Link to={`/todo/${child.id}`}>{child.title}</Link>
-                </div>
-              ))}
-            </div>
           </div>
         ))}
       </div>
