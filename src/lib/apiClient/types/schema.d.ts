@@ -176,6 +176,19 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    /** TaskActionResource */
+    TaskActionResource: {
+      id: number;
+      task_id: number;
+      name: string;
+      is_done: boolean;
+      /** Format: date-time */
+      created_at: string | null;
+      /** Format: date-time */
+      updated_at: string | null;
+      /** Format: date-time */
+      deleted_at: string | null;
+    };
     /** TaskResource */
     TaskResource: {
       id: number;
@@ -541,7 +554,9 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'application/json': {
+            actions: components['schemas']['TaskActionResource'][];
+          };
         };
       };
       401: components['responses']['AuthenticationException'];
