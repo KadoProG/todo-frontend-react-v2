@@ -6,11 +6,14 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { useTaskActions } from '@/pages/todo/[id]/lib/useTaskActions';
+import { useAddTaskAction } from '@/pages/todo/[id]/lib/useAddTaskAction';
+import { Button } from '@/components/common/button/Button';
 
 export const TodoDetailPage: React.FC = () => {
   const [isNotFound, setIsNotFound] = React.useState<boolean>(false);
   const { id } = useParams();
-  const { actions, isLoading: isActionsLoading } = useTaskActions(id);
+  const { actions, isLoading: isActionsLoading, mutate } = useTaskActions(id);
+  const { add } = useAddTaskAction(id, mutate);
 
   const params = id
     ? {
@@ -74,6 +77,7 @@ export const TodoDetailPage: React.FC = () => {
           </>
         )}
         <h3>アクション</h3>
+        <Button onClick={() => add(`task${actions?.length}`)}>アクション追加</Button>
         <div style={{ display: 'flex', flexFlow: 'column', gap: 8, padding: 8 }}>
           {isActionsLoading && (
             <>
@@ -84,15 +88,15 @@ export const TodoDetailPage: React.FC = () => {
           )}
           <div>
             {actions?.map((action) => (
-                <div key={action.id}>
-                  <label style={{ display: 'flex', gap: 8 }}>
-                    <input type="checkbox" checked={action.is_done} />
-                    <p>
-                      {action.name} - {action.is_done ? '完了' : '未完了'}
-                    </p>
-                  </label>
-                </div>
-              ))}
+              <div key={action.id}>
+                <label style={{ display: 'flex', gap: 8 }}>
+                  <input type="checkbox" checked={action.is_done} />
+                  <p>
+                    {action.name} - {action.is_done ? '完了' : '未完了'}
+                  </p>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
         {

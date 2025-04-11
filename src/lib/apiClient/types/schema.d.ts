@@ -112,10 +112,30 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** タスクに対応するアクション一覧 */
     get: operations['actions.index'];
     put?: never;
-    post?: never;
+    /** タスクに対応するアクション作成 */
+    post: operations['actions.store'];
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v1/tasks/{task}/actions/{action}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** タスクに対応するアクション更新 */
+    put: operations['actions.update'];
+    post?: never;
+    /** タスクに対応するアクション削除 */
+    delete: operations['actions.destroy'];
     options?: never;
     head?: never;
     patch?: never;
@@ -429,6 +449,8 @@ export interface operations {
           title: string;
           is_public: boolean;
           description?: string | null;
+          /** Format: date */
+          expired_at?: string | null;
           assigned_user_ids?: number[] | null;
         };
       };
@@ -491,6 +513,8 @@ export interface operations {
         'application/json': {
           title?: string;
           is_public?: boolean;
+          /** Format: date */
+          expired_at?: string | null;
           description?: string | null;
           is_done?: boolean;
           assigned_user_ids?: number[] | null;
@@ -559,6 +583,99 @@ export interface operations {
           'application/json': {
             actions: components['schemas']['TaskActionResource'][];
           };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
+    };
+  };
+  'actions.store': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The task ID */
+        task: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          name: string;
+          is_done?: boolean;
+        };
+      };
+    };
+    responses: {
+      /** @description `TaskActionResource` */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TaskActionResource'];
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
+      422: components['responses']['ValidationException'];
+    };
+  };
+  'actions.update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The task ID */
+        task: number;
+        action: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': {
+          name?: string;
+          is_done?: boolean;
+        };
+      };
+    };
+    responses: {
+      /** @description `TaskActionResource` */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TaskActionResource'];
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
+      422: components['responses']['ValidationException'];
+    };
+  };
+  'actions.destroy': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The task ID */
+        task: number;
+        action: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No content */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': null;
         };
       };
       401: components['responses']['AuthenticationException'];
