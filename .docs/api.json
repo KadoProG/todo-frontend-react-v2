@@ -606,6 +606,10 @@
           "is_done": {
             "type": "boolean"
           },
+          "expired_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
           "created_user_id": {
             "type": "integer"
           },
@@ -633,6 +637,7 @@
           "description",
           "is_public",
           "is_done",
+          "expired_at",
           "created_user_id",
           "created_at",
           "updated_at",

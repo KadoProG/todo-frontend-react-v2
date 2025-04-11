@@ -4,6 +4,7 @@ import { DeleteButton } from '@/components/common/button/DeleteButton';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { TextField } from '@/components/common/input/TextField';
 import { useTodoList } from '@/pages/todo/useTodoList';
+import dayjs from 'dayjs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -61,6 +62,10 @@ export const TodoPage: React.FC = () => {
                 <p>ステータス：{todo.is_done ? '完了' : '未完了'}</p>
                 {!todo.is_public && <p style={{ color: 'blue' }}>プライベートタスク</p>}
                 {todo.is_public && <p style={{ color: 'green' }}>公開タスク</p>}
+                <p>
+                  期限：
+                  {todo.expired_at ? dayjs(todo.expired_at).format('YYYY年MM月DD日 HH:mm') : 'なし'}
+                </p>
                 {todo.assigned_users.length !== 0 && (
                   <p>
                     担当者：{todo.assigned_users?.map((assinedUser) => assinedUser.name).join(',')}

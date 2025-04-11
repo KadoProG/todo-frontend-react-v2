@@ -196,6 +196,8 @@ export interface components {
       description: string | null;
       is_public: boolean;
       is_done: boolean;
+      /** Format: date-time */
+      expired_at: string | null;
       created_user_id: number;
       /** Format: date-time */
       created_at: string | null;
