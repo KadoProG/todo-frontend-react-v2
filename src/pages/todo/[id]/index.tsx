@@ -13,7 +13,7 @@ export const TodoDetailPage: React.FC = () => {
   const [isNotFound, setIsNotFound] = React.useState<boolean>(false);
   const { id } = useParams();
   const { actions, isLoading: isActionsLoading, mutate } = useTaskActions(id);
-  const { add } = useAddTaskAction(id, mutate);
+  const { addTaskAction, isSubmitting } = useAddTaskAction(id, mutate);
 
   const params = id
     ? {
@@ -67,17 +67,14 @@ export const TodoDetailPage: React.FC = () => {
               <small>説明：{task.description}</small>
             </p>
             <p>状態：{task.is_done ? '完了' : '未完了'}</p>
-            {/* TODO アクションを設定する */}
-            {/* {task.children?.map((child) => (
-              <div key={child.id} style={{ display: 'flex', gap: 4 }}>
-                <Link to={`/todo/${child.id}`}>{child.title}</Link>-{' '}
-                {child.isDone ? '完了' : '未完了'}
-              </div>
-            ))} */}
           </>
         )}
         <h3>アクション</h3>
-        <Button onClick={() => add(`task${actions?.length}`)}>アクション追加</Button>
+        <div>
+          <Button onClick={addTaskAction} disabled={isSubmitting}>
+            アクション追加
+          </Button>
+        </div>
         <div style={{ display: 'flex', flexFlow: 'column', gap: 8, padding: 8 }}>
           {isActionsLoading && (
             <>
@@ -90,7 +87,7 @@ export const TodoDetailPage: React.FC = () => {
             {actions?.map((action) => (
               <div key={action.id}>
                 <label style={{ display: 'flex', gap: 8 }}>
-                  <input type="checkbox" checked={action.is_done} />
+                  <input type="checkbox" checked={action.is_done} disabled={isSubmitting} />
                   <p>
                     {action.name} - {action.is_done ? '完了' : '未完了'}
                   </p>
