@@ -629,7 +629,8 @@ export interface operations {
       path: {
         /** @description The task ID */
         task: number;
-        action: string;
+        /** @description The action ID */
+        action: number;
       };
       cookie?: never;
     };
@@ -663,7 +664,8 @@ export interface operations {
       path: {
         /** @description The task ID */
         task: number;
-        action: string;
+        /** @description The action ID */
+        action: number;
       };
       cookie?: never;
     };

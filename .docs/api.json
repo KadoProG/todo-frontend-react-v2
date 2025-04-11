@@ -548,8 +548,9 @@
             "name": "action",
             "in": "path",
             "required": true,
+            "description": "The action ID",
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],
@@ -610,8 +611,9 @@
             "name": "action",
             "in": "path",
             "required": true,
+            "description": "The action ID",
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],

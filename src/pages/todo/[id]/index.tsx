@@ -7,13 +7,16 @@ import { Link, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { useTaskActions } from '@/pages/todo/[id]/lib/useTaskActions';
 import { useAddTaskAction } from '@/pages/todo/[id]/lib/useAddTaskAction';
+import { useEditTaskAction } from '@/pages/todo/[id]/lib/useEditTaskAction';
 import { Button } from '@/components/common/button/Button';
 
 export const TodoDetailPage: React.FC = () => {
   const [isNotFound, setIsNotFound] = React.useState<boolean>(false);
   const { id } = useParams();
   const { actions, isLoading: isActionsLoading, mutate } = useTaskActions(id);
-  const { addTaskAction, isSubmitting } = useAddTaskAction(id, mutate);
+  const { addTaskAction, isSubmitting: isAddTaskSubmitting } = useAddTaskAction(id, mutate);
+  const { editTaskAction, isSubmitting: isEditTaskSubmitting } = useEditTaskAction(mutate);
+  const isSubmitting = isAddTaskSubmitting || isEditTaskSubmitting;
 
   const params = id
     ? {
@@ -87,7 +90,18 @@ export const TodoDetailPage: React.FC = () => {
             {actions?.map((action) => (
               <div key={action.id}>
                 <label style={{ display: 'flex', gap: 8 }}>
-                  <input type="checkbox" checked={action.is_done} disabled={isSubmitting} />
+                  <input
+                    type="checkbox"
+                    checked={action.is_done}
+                    disabled={isSubmitting}
+                    onChange={() => {
+                      editTaskAction({
+                        id: action.id,
+                        taskId: action.task_id,
+                        isDone: !action.is_done,
+                      });
+                    }}
+                  />
                   <p>
                     {action.name} - {action.is_done ? '完了' : '未完了'}
                   </p>
