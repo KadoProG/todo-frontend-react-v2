@@ -196,6 +196,12 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    /** LoginRequest */
+    LoginRequest: {
+      /** Format: email */
+      email: string;
+      password: string;
+    };
     /** TaskActionResource */
     TaskActionResource: {
       id: number;
@@ -256,6 +262,18 @@ export interface components {
         };
       };
     };
+    /** @description Authorization error */
+    AuthorizationException: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          /** @description Error overview. */
+          message: string;
+        };
+      };
+    };
     /** @description Unauthenticated */
     AuthenticationException: {
       headers: {
@@ -295,7 +313,11 @@ export interface operations {
       path?: never;
       cookie?: never;
     };
-    requestBody?: never;
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['LoginRequest'];
+      };
+    };
     responses: {
       200: {
         headers: {
@@ -316,6 +338,8 @@ export interface operations {
           };
         };
       };
+      403: components['responses']['AuthorizationException'];
+      422: components['responses']['ValidationException'];
     };
   };
   'auth.logout': {
@@ -449,7 +473,7 @@ export interface operations {
           title: string;
           is_public: boolean;
           description?: string | null;
-          /** Format: date */
+          /** Format: date-time */
           expired_at?: string | null;
           assigned_user_ids?: number[] | null;
         };
@@ -513,7 +537,7 @@ export interface operations {
         'application/json': {
           title?: string;
           is_public?: boolean;
-          /** Format: date */
+          /** Format: date-time */
           expired_at?: string | null;
           description?: string | null;
           is_done?: boolean;

@@ -14,6 +14,16 @@
       "post": {
         "operationId": "login",
         "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application\/json": {
+              "schema": {
+                "$ref": "#\/components\/schemas\/LoginRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -41,6 +51,12 @@
                 }
               }
             }
+          },
+          "422": {
+            "$ref": "#\/components\/responses\/ValidationException"
+          },
+          "403": {
+            "$ref": "#\/components\/responses\/AuthorizationException"
           }
         }
       }
@@ -235,7 +251,7 @@
                   },
                   "expired_at": {
                     "type": ["string", "null"],
-                    "format": "date"
+                    "format": "date-time"
                   },
                   "assigned_user_ids": {
                     "type": ["array", "null"],
@@ -346,7 +362,7 @@
                   },
                   "expired_at": {
                     "type": ["string", "null"],
-                    "format": "date"
+                    "format": "date-time"
                   },
                   "description": {
                     "type": ["string", "null"]
@@ -730,6 +746,20 @@
   },
   "components": {
     "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"],
+        "title": "LoginRequest"
+      },
       "TaskActionResource": {
         "type": "object",
         "properties": {
@@ -872,6 +902,23 @@
                 }
               },
               "required": ["message", "errors"]
+            }
+          }
+        }
+      },
+      "AuthorizationException": {
+        "description": "Authorization error",
+        "content": {
+          "application\/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Error overview."
+                }
+              },
+              "required": ["message"]
             }
           }
         }
