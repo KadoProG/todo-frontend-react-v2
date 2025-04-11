@@ -14,4 +14,11 @@
   &:hover {
     background: var(--divider);
   }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+    &:hover {
+      background: var(--background-paper);
+    }
+  }
 }

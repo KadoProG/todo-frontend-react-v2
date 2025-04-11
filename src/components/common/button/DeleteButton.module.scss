@@ -13,6 +13,10 @@
     background: #ebd5d5;
   }
   &:disabled {
+    cursor: not-allowed;
+    &:hover {
+      background: var(--color-error);
+    }
     & * {
       opacity: 0.3;
     }
