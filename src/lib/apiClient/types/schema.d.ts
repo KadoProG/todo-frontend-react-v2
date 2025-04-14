@@ -13,6 +13,7 @@ export interface paths {
     };
     get?: never;
     put?: never;
+    /** ログイン */
     post: operations['login'];
     delete?: never;
     options?: never;
@@ -29,6 +30,7 @@ export interface paths {
     };
     get?: never;
     put?: never;
+    /** ログアウト */
     post: operations['auth.logout'];
     delete?: never;
     options?: never;
@@ -45,6 +47,7 @@ export interface paths {
     };
     get?: never;
     put?: never;
+    /** ユーザー登録 */
     post: operations['auth.register'];
     delete?: never;
     options?: never;
@@ -61,6 +64,7 @@ export interface paths {
     };
     get?: never;
     put?: never;
+    /** トークンのリフレッシュ */
     post: operations['auth.refresh'];
     delete?: never;
     options?: never;
@@ -202,6 +206,11 @@ export interface components {
       email: string;
       password: string;
     };
+    /** StoreTaskActionRequest */
+    StoreTaskActionRequest: {
+      name: string;
+      is_done?: boolean;
+    };
     /** TaskActionResource */
     TaskActionResource: {
       id: number;
@@ -231,6 +240,11 @@ export interface components {
       updated_at: string | null;
       created_user: components['schemas']['UserResource'];
       assigned_users: components['schemas']['UserResource'][];
+    };
+    /** UpdateTaskActionRequest */
+    UpdateTaskActionRequest: {
+      name?: string;
+      is_done?: boolean;
     };
     /** UserResource */
     UserResource: {
@@ -440,7 +454,18 @@ export interface operations {
   };
   'task.index': {
     parameters: {
-      query?: never;
+      query?: {
+        is_public?: boolean | null;
+        is_done?: boolean | null;
+        expired_before?: string | null;
+        expired_after?: string | null;
+        created_user_id?: number | null;
+        assigned_user_id?: number | null;
+        sort_by?: 'title' | 'expired_at' | 'created_at' | 'updated_at' | null;
+        sort_order?: 'asc' | 'desc' | null;
+        created_user_ids?: number[] | null;
+        assigned_user_ids?: number[] | null;
+      };
       header?: never;
       path?: never;
       cookie?: never;
@@ -458,6 +483,8 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
+      422: components['responses']['ValidationException'];
     };
   };
   'tasks.store': {
@@ -579,9 +606,7 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          'application/json': null;
-        };
+        content?: never;
       };
       401: components['responses']['AuthenticationException'];
       404: components['responses']['ModelNotFoundException'];
@@ -625,10 +650,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': {
-          name: string;
-          is_done?: boolean;
-        };
+        'application/json': components['schemas']['StoreTaskActionRequest'];
       };
     };
     responses: {
@@ -642,6 +664,7 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
       404: components['responses']['ModelNotFoundException'];
       422: components['responses']['ValidationException'];
     };
@@ -660,10 +683,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': {
-          name?: string;
-          is_done?: boolean;
-        };
+        'application/json': components['schemas']['UpdateTaskActionRequest'];
       };
     };
     responses: {
@@ -677,6 +697,7 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
       404: components['responses']['ModelNotFoundException'];
       422: components['responses']['ValidationException'];
     };
@@ -700,9 +721,7 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          'application/json': null;
-        };
+        content?: never;
       };
       401: components['responses']['AuthenticationException'];
       404: components['responses']['ModelNotFoundException'];
@@ -755,7 +774,18 @@ export interface operations {
   };
   'userMeTask.index': {
     parameters: {
-      query?: never;
+      query?: {
+        is_public?: boolean | null;
+        is_done?: boolean | null;
+        expired_before?: string | null;
+        expired_after?: string | null;
+        created_user_id?: number | null;
+        assigned_user_id?: number | null;
+        sort_by?: 'title' | 'expired_at' | 'created_at' | 'updated_at' | null;
+        sort_order?: 'asc' | 'desc' | null;
+        created_user_ids?: number[] | null;
+        assigned_user_ids?: number[] | null;
+      };
       header?: never;
       path?: never;
       cookie?: never;
@@ -773,6 +803,8 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
+      422: components['responses']['ValidationException'];
     };
   };
 }
