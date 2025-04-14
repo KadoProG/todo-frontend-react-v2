@@ -170,10 +170,26 @@ export interface paths {
       cookie?: never;
     };
     /** ユーザ一覧取得 */
-    get: operations['user.index'];
+    get: operations['users.index'];
     put?: never;
     post?: never;
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v1/users/{user}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put: operations['users.update'];
+    post?: never;
+    delete: operations['users.destroy'];
     options?: never;
     head?: never;
     patch?: never;
@@ -750,7 +766,7 @@ export interface operations {
       401: components['responses']['AuthenticationException'];
     };
   };
-  'user.index': {
+  'users.index': {
     parameters: {
       query?: never;
       header?: never;
@@ -770,6 +786,67 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+    };
+  };
+  'users.update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The user ID */
+        user: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': {
+          name?: string;
+          /** Format: email */
+          email?: string;
+          password?: string;
+          password_confirmation?: string;
+        };
+      };
+    };
+    responses: {
+      /** @description `UserResource` */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            user: components['schemas']['UserResource'];
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
+      422: components['responses']['ValidationException'];
+    };
+  };
+  'users.destroy': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The user ID */
+        user: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No content */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
     };
   };
   'userMeTask.index': {
