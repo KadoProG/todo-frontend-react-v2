@@ -14,7 +14,8 @@
     "prepare": "husky",
     "schema": "npm run get:api && npm run schema:generate",
     "get:api": "curl -o .docs/api.json http://localhost:8080/docs/api.json",
-    "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts && prettier --write .docs/api.json"
+    "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts && prettier --write .docs/api.json",
+    "mock": "prism mock .docs/api.json --port 18080"
   },
   "dependencies": {
     "axios": "^1.7.7",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
+    "@stoplight/prism-cli": "^5.12.0",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
