@@ -4,12 +4,12 @@ import { HomePage } from '@/pages/home/HomePage';
 import { LoginPage } from '@/pages/login/LoginPage';
 import { TodoDetailPage } from '@/pages/todo/[id]';
 import { TodoPage } from '@/pages/todo/TodoPage';
-import { AuthenticatedOutlet } from '@/routes/outlet/AuthenticatedOutlet';
-import { UnauthenticatedOutlet } from '@/routes/outlet/UnauthenticatedOutlet';
+import { AuthenticatedOutlet } from '@/outlet/AuthenticatedOutlet';
+import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-export const MyRouter: React.FC = () => {
+export const Router: React.FC = () => {
   const { status } = useAuthContext();
 
   if (status === 'unverified') {
