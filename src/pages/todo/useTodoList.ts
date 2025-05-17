@@ -22,7 +22,6 @@ export const useTodoList = () => {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       onError: (error) => {
-        // eslint-disable-next-line
         console.error(error);
       },
     }
@@ -72,21 +71,6 @@ export const useTodoList = () => {
     [todos, mutate]
   );
 
-  const handleDeleteTodo = React.useCallback(
-    async (id: number) => {
-      if (!id) return;
-      setIsHandleLoading(true);
-      await axios.delete(`/v1/tasks/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
-        },
-      });
-      await mutate();
-      setIsHandleLoading(false);
-    },
-    [mutate]
-  );
-
   return {
     control,
     isLoading,
@@ -94,8 +78,8 @@ export const useTodoList = () => {
     todos,
     handleAddTodo,
     handleUpdateTodo,
-    handleDeleteTodo,
     assignedUserIds,
     setAssignedUserIds,
+    mutate,
   };
 };

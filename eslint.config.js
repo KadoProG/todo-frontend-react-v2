@@ -22,7 +22,7 @@ export default tseslint.config({
   rules: {
     ...reactHooks.configs.recommended.rules,
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    'no-console': 'warn',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-extra-semi': 'warn',
     // TypeScriptは@typescriptで実行する
     'no-unused-vars': 'off',

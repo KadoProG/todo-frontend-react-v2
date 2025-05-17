@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         border: '#ddd',
+        text: '#000',
         'text-secondary': '#666',
         'bg-active': '#96E3AE',
         'bg-active-hover': '#7DC393',
