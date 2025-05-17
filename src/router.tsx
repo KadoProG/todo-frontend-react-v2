@@ -3,11 +3,11 @@ import { useAuthContext } from '@/contexts/authContext';
 import { HomePage } from '@/pages/home/HomePage';
 import { LoginPage } from '@/pages/login/LoginPage';
 import { TodoDetailPage } from '@/pages/todo/[id]';
-import { TodoPage } from '@/pages/todo/TodoPage';
 import { AuthenticatedOutlet } from '@/outlet/AuthenticatedOutlet';
 import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { TodoPage } from '@/pages/todo';
 
 export const Router: React.FC = () => {
   const { status } = useAuthContext();
