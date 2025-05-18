@@ -13,6 +13,7 @@ export default {
         'bg-base': '#FFF',
         'bg-base-hover': '#F5F5F5',
         'bg-base-dark': '#17191C',
+        'bg-base-hover-dark': '#1F2125',
       },
       backgroundImage: {
         // スケルトンに使うグラデーション

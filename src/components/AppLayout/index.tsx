@@ -8,11 +8,11 @@ type Props = {
 export const AppLayout: React.FC<Props> = ({ children }) => {
   const { user } = useAuthContext();
   return (
-    <div style={{ display: 'flex', minHeight: '100svh' }}>
+    <div className="flex h-screen">
       <SideBar />
 
-      <div style={{ flex: 1 }}>
-        <div style={{ position: 'sticky', background: '#eee', display: 'flex' }}>
+      <div className="flex-1">
+        <div className="sticky flex bg-bg-base-hover dark:bg-bg-base-hover-dark">
           ようこそ、{user?.name}さん
         </div>
         {children}
