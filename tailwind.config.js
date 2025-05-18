@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    darkMode: 'class',
     extend: {
       colors: {
         border: '#ddd',
         text: '#000',
         'text-secondary': '#666',
+        'text-dark': '#DDD',
         'bg-active': '#96E3AE',
         'bg-active-hover': '#7DC393',
         'bg-base': '#FFF',
