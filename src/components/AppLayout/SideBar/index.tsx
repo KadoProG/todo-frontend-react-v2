@@ -7,9 +7,9 @@ export const SideBar: React.FC = () => {
   const { isLoading, todos } = useTodoList();
 
   return (
-    <div style={{ width: 140, padding: 8, border: '1px solid var(--divider)', borderRadius: 4 }}>
+    <div className="w-[140px] rounded border border-border p-2 dark:border-border-dark">
       <p>ToDo</p>
-      <div style={{ display: 'flex', flexFlow: 'column', gap: 8 }}>
+      <div className="flex flex-col gap-2">
         {isLoading && (
           <>
             <Skeleton />
@@ -21,7 +21,7 @@ export const SideBar: React.FC = () => {
         )}
         {todos.map((todo) => (
           <div key={todo.id}>
-            <div style={{ display: 'flex', gap: 4 }}>
+            <div className="flex gap-1">
               <Link to={`/todo/${todo.id}`}>{todo.title}</Link>
             </div>
           </div>
