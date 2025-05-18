@@ -1,11 +1,12 @@
 import { ThemeContext } from '@/contexts/Theme';
 import { store } from '@/lib/store';
-import { FC, ReactNode, useCallback, useEffect, useMemo } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 export const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
-  const theme = useMemo(() => store.get('theme'), []);
+  const [theme, setTheme] = useState<'light' | 'dark' | 'device'>(store.get('theme'));
 
   const updateTheme = useCallback((newTheme: 'light' | 'dark' | 'device') => {
+    setTheme(newTheme);
     store.set('theme', newTheme);
   }, []);
 

@@ -1,3 +1,4 @@
+import { ThemeSwitch } from '@/components/AppLayout/SideBar/ThemeSwitch';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { useTodoList } from '@/pages/todo/useTodoList';
 import React from 'react';
@@ -8,6 +9,7 @@ export const SideBar: React.FC = () => {
 
   return (
     <div className="w-[140px] rounded border border-border p-2 dark:border-border-dark">
+      <ThemeSwitch />
       <p>ToDo</p>
       <div className="flex flex-col gap-2">
         {isLoading && (
