@@ -5,13 +5,16 @@ import '@/index.scss';
 import { SnackbarContextProvider } from '@/components/common/feedback/SnackbarContextProvider';
 import { AuthContextProvider } from '@/contexts/AuthContextProvider';
 import { Router } from '@/router';
+import { ThemeContextProvider } from '@/contexts/Theme/ThemeProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <SnackbarContextProvider>
-      <AuthContextProvider>
-        <Router />
-      </AuthContextProvider>
-    </SnackbarContextProvider>
+    <ThemeContextProvider>
+      <SnackbarContextProvider>
+        <AuthContextProvider>
+          <Router />
+        </AuthContextProvider>
+      </SnackbarContextProvider>
+    </ThemeContextProvider>
   </StrictMode>
 );
