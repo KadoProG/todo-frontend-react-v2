@@ -19,7 +19,7 @@ export const TodoPage: React.FC = () => {
   return (
     <AppLayout>
       <div style={{ padding: 8 }}>
-        <h1>ToDo App</h1>
+        <h1 className="text-3xl">ToDo App</h1>
         <div style={{ display: 'flex', width: '100%' }}>
           <div>
             <TextField
