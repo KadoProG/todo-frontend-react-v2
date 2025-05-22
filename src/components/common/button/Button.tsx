@@ -1,4 +1,3 @@
-import styles from '@/components/common/button/Button.module.scss';
 import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +14,11 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = (props) =>
   props.href ? (
-    <Link to={props.href} className={styles.button} style={{ width: props.width, ...props.style }}>
+    <Link
+      to={props.href}
+      className="flex cursor-pointer items-center justify-center rounded border border-border p-2 hover:bg-bg-base-hover disabled:cursor-not-allowed disabled:opacity-50 dark:border-border-dark hover:dark:bg-bg-base-hover-dark"
+      style={{ width: props.width, ...props.style }}
+    >
       {props.children}
     </Link>
   ) : (
@@ -24,7 +27,7 @@ export const Button: React.FC<ButtonProps> = (props) =>
       onClick={props.onClick}
       disabled={props.disabled}
       type={props.type}
-      className={styles.button}
+      className="flex cursor-pointer items-center justify-center rounded border border-border p-2 hover:bg-bg-base-hover disabled:cursor-not-allowed disabled:opacity-50 dark:border-border-dark hover:dark:bg-bg-base-hover-dark"
       style={{ width: props.width, ...props.style }}
     >
       {props.children}

@@ -1,5 +1,4 @@
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form';
-import styles from '@/components/common/input/TextField.module.scss';
 import React from 'react';
 
 export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
@@ -40,11 +39,15 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
   }, [props.isActiveFocus]);
 
   return (
-    <div className={styles.container} style={props.style}>
+    <div className="relative pb-5" style={props.style}>
       {props.label && (
         <div>
           <label htmlFor={props.name}>{props.label}</label>
-          {props.required && <span className={styles.required}>*</span>}
+          {props.required && (
+            <span className="text-[red]" aria-hidden="true">
+              *
+            </span>
+          )}
         </div>
       )}
       <input
@@ -55,10 +58,12 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
         disabled={props.disabled}
         type={props.type}
         autoFocus={props.autoFocus}
-        className={`${styles.Input} ${fieldState.error ? styles.InputError : ''}`}
+        className={`w-full rounded border p-2 text-xl dark:text-text-dark ${fieldState.error ? 'border-[red]' : 'border-border dark:border-border-dark'}`}
         onBlur={props.onBlur}
       />
-      {fieldState.error && <p className={styles.errorText}>{fieldState.error.message}</p>}
+      {fieldState.error && (
+        <p className="absolute text-sm text-[red]">{fieldState.error.message}</p>
+      )}
     </div>
   );
 };
