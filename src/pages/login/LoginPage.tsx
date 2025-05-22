@@ -29,7 +29,7 @@ export const LoginPage: React.FC = () => {
           showSnackbar({ message: 'ログインしました', type: 'success' });
         } catch (error) {
           showSnackbar({ message: 'ログインに失敗しました', type: 'warning' });
-          console.error(error); // eslint-disable-line no-console
+          console.error(error);
         }
       })();
     },
