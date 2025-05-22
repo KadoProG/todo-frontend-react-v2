@@ -11,6 +11,8 @@ export default {
         'text-dark': '#DDD',
         'bg-active': '#96E3AE',
         'bg-active-hover': '#7DC393',
+        'bg-active-dark': '#2F6843',
+        'bg-active-hover-dark': '#26573A',
         'bg-base': '#FFF',
         'bg-base-hover': '#F5F5F5',
         'bg-base-dark': '#17191C',

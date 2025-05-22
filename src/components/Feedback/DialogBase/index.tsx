@@ -11,7 +11,10 @@ export const DialogBase: FC<Props> = (props) => {
       className="fixed top-0 left-0 z-10 flex h-svh w-svw items-center justify-center bg-[rgba(0,0,0,0.1)]"
       onClick={props.onClose}
     >
-      <div className="m-4 w-md rounded-xl bg-bg-base p-4" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="m-4 w-md rounded-xl bg-bg-base p-4 dark:bg-bg-base-dark"
+        onClick={(e) => e.stopPropagation()}
+      >
         {props.children}
       </div>
     </div>

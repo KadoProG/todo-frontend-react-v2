@@ -13,7 +13,7 @@ export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   /** デザインの追記 */
   style?: React.CSSProperties;
   /** inputのtype */
-  type: React.HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute;
   /** ロード時フォームフォーカス */
   autoFocus?: boolean;
   /** フィールドフォーカス解除時の動作 */
