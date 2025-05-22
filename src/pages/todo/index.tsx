@@ -4,17 +4,18 @@ import { DeleteButton } from '@/components/common/button/DeleteButton';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { TextField } from '@/components/common/input/TextField';
 import { useTodoDelete } from '@/pages/todo/lib/useTodoDelete';
+import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
 import { useTodoList } from '@/pages/todo/useTodoList';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 export const TodoPage: React.FC = () => {
-  const { control, isLoading, isHandleLoading, todos, handleAddTodo, handleUpdateTodo, mutate } =
-    useTodoList();
+  const { control, isLoading, isHandleLoading, todos, handleAddTodo, mutate } = useTodoList();
+  const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate });
   const { deleteTodo, isSubmitting: isDeleteSubmitting } = useTodoDelete({ mutate });
 
-  const disabled = isHandleLoading || isDeleteSubmitting;
+  const disabled = isHandleLoading || isUpdateSubmitting || isDeleteSubmitting;
 
   return (
     <AppLayout>
@@ -74,7 +75,10 @@ export const TodoPage: React.FC = () => {
                     gap: 8,
                   }}
                 >
-                  <Button onClick={() => handleUpdateTodo(todo.id)} disabled={disabled}>
+                  <Button
+                    onClick={() => updateTodo(todo.id, { is_done: !todo.is_done })}
+                    disabled={disabled}
+                  >
                     {todo.is_done ? '未完了にする' : '完了にする'}
                   </Button>
                   <DeleteButton onClick={() => deleteTodo(todo.id)} disabled={disabled} />

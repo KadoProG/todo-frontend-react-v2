@@ -1,7 +1,7 @@
 import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
 import { apiClient } from '@/lib/apiClient';
 import axios from '@/libs/axios';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 
@@ -11,7 +11,6 @@ export const useTodoList = () => {
       title: '',
     },
   });
-  const [assignedUserIds, setAssignedUserIds] = useState<number[]>([]);
   const [isHandleLoading, setIsHandleLoading] = React.useState<boolean>(false);
 
   const { isLoading, data, mutate } = useSWR(
@@ -51,35 +50,12 @@ export const useTodoList = () => {
     })();
   }, [mutate, reset, handleSubmit]);
 
-  const handleUpdateTodo = React.useCallback(
-    async (id: number) => {
-      if (!id) return;
-      const todo = todos.find((todo) => todo.id === id);
-      if (!todo) return;
-
-      const newTodo = { ...todo, is_done: !todo.is_done };
-
-      setIsHandleLoading(true);
-      await axios.put(`/v1/tasks/${id}`, newTodo, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
-        },
-      });
-      await mutate();
-      setIsHandleLoading(false);
-    },
-    [todos, mutate]
-  );
-
   return {
     control,
     isLoading,
     isHandleLoading,
     todos,
     handleAddTodo,
-    handleUpdateTodo,
-    assignedUserIds,
-    setAssignedUserIds,
     mutate,
   };
 };
