@@ -47,13 +47,13 @@ export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
   return (
     <DialogBase isOpen={isOpen} onClose={onClose}>
       <form
-        className="flex flex-col gap-4"
+        className="flex flex-col"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
         }}
       >
-        <h2 className="text-2xl font-bold">タスク追加</h2>
+        <h2 className="mb-2 text-2xl font-bold">タスク追加</h2>
         <TextField
           control={control}
           name="title"
