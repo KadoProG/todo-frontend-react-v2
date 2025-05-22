@@ -19,9 +19,9 @@ export const TodoPage: React.FC = () => {
 
   return (
     <AppLayout>
-      <div style={{ padding: 8 }}>
+      <div className="flex flex-col gap-2 px-4 py-2">
         <h1 className="text-3xl">ToDo App</h1>
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className="flex w-full">
           <div>
             <TextField
               control={control}
