@@ -1,9 +1,9 @@
 import styles from '@/components/common/button/Button.module.scss';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 interface ButtonProps {
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   onMouseDown?: (e: React.MouseEvent) => void;
   disabled?: boolean;
   type?: HTMLButtonElement['type'];

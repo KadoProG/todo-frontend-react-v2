@@ -10,7 +10,7 @@ type Props = {
   onClose: (isMutate?: boolean) => void;
 };
 
-export const AddTaskDialog: FC<Props> = ({ isOpen, onClose }) => {
+export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
   const { control, reset, handleSubmit } = useForm<{
     title: string;
     description: string;

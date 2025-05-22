@@ -3,12 +3,12 @@ import { Button } from '@/components/common/button/Button';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { TextField } from '@/components/common/input/TextField';
-import { AddTaskDialog } from '@/pages/todo/components/AddTaskDialog';
+import { AddTodoDialog } from '@/pages/todo/components/AddTodoDialog';
 import { useTodoDelete } from '@/pages/todo/lib/useTodoDelete';
 import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
 import { useTodoList } from '@/pages/todo/useTodoList';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 export const TodoPage: React.FC = () => {
@@ -16,6 +16,16 @@ export const TodoPage: React.FC = () => {
   const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate });
   const { deleteTodo, isSubmitting: isDeleteSubmitting } = useTodoDelete({ mutate });
   const [isOpen, setIsOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+
+  const openAddDialog = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    triggerRef.current = e.currentTarget;
+    setIsOpen(true);
+  }, []);
+  const closeAddDialog = useCallback(() => {
+    setIsOpen(false);
+    triggerRef.current?.focus();
+  }, []);
 
   const disabled = isHandleLoading || isUpdateSubmitting || isDeleteSubmitting;
 
@@ -23,7 +33,7 @@ export const TodoPage: React.FC = () => {
     <AppLayout>
       <div className="flex flex-col gap-2 px-4 py-2">
         <h1 className="text-3xl">ToDo App</h1>
-        <Button onClick={() => setIsOpen(true)}>追加</Button>
+        <Button onClick={openAddDialog}>追加</Button>
         <div className="flex w-full">
           <div>
             <TextField
@@ -91,10 +101,10 @@ export const TodoPage: React.FC = () => {
           ))}
         </div>
       </div>
-      <AddTaskDialog
+      <AddTodoDialog
         isOpen={isOpen}
         onClose={(isMutate) => {
-          setIsOpen(false);
+          closeAddDialog();
           if (isMutate) mutate();
         }}
       />
