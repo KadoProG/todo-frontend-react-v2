@@ -36,19 +36,17 @@ export const TodoPage: React.FC = () => {
           <Button onClick={openAddDialog}>追加</Button>
         </div>
 
-        <div style={{ display: 'flex', flexFlow: 'column', gap: 8 }}>
+        <div className="flex flex-col gap-2">
           {isLoading && (
             <>
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
+              {Array.from({ length: 10 }).map((_, index) => (
+                <Skeleton key={index} className="h-[200px]" />
+              ))}
             </>
           )}
           {todos.map((todo) => (
             <div key={todo.id}>
-              <div style={{ border: '1px solid var(--divider)', padding: 8 }}>
+              <div className="border border-border p-2 dark:border-border-dark">
                 <p>
                   <Link to={`/todo/${todo.id}`}>{todo.title}</Link>
                 </p>
@@ -56,8 +54,8 @@ export const TodoPage: React.FC = () => {
                   <small>{todo.description}</small>
                 </p>
                 <p>ステータス：{todo.is_done ? '完了' : '未完了'}</p>
-                {!todo.is_public && <p style={{ color: 'blue' }}>プライベートタスク</p>}
-                {todo.is_public && <p style={{ color: 'green' }}>公開タスク</p>}
+                {!todo.is_public && <p className="text-[blue]">プライベートタスク</p>}
+                {todo.is_public && <p className="text-[green]">公開タスク</p>}
                 <p>
                   期限：
                   {todo.expired_at ? dayjs(todo.expired_at).format('YYYY年MM月DD日 HH:mm') : 'なし'}
@@ -67,12 +65,7 @@ export const TodoPage: React.FC = () => {
                     担当者：{todo.assigned_users?.map((assinedUser) => assinedUser.name).join(',')}
                   </p>
                 )}
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 8,
-                  }}
-                >
+                <div className="flex gap-2">
                   <Button
                     onClick={() => updateTodo(todo.id, { is_done: !todo.is_done })}
                     disabled={disabled}
