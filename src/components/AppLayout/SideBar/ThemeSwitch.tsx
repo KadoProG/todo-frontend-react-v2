@@ -132,7 +132,7 @@ export const ThemeSwitch: FC = () => {
   }, [isOpen]);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="relative w-full">
       <button
         type="button"
         aria-haspopup="listbox"
@@ -142,7 +142,7 @@ export const ThemeSwitch: FC = () => {
         onKeyDown={onButtonKeyDown}
         ref={buttonRef}
         id="select-button"
-        className="w-full rounded border border-border p-2 dark:border-border-dark"
+        className={`w-full ${isOpen ? 'rounded-t' : 'rounded'} border border-border p-2 dark:border-border-dark`}
       >
         {options[selectedIndex].label}
       </button>
@@ -153,7 +153,7 @@ export const ThemeSwitch: FC = () => {
           tabIndex={-1}
           ref={listRef}
           onKeyDown={onOptionKeyDown}
-          className="max-h-[150px] overflow-y-auto border border-border dark:border-border-dark"
+          className="absolute top-[calc(100%_-_1px)] max-h-[150px] w-full overflow-y-auto rounded-b border border-border bg-bg-base dark:border-border-dark dark:bg-bg-base-dark"
         >
           {options.map((option, index) => (
             <li
