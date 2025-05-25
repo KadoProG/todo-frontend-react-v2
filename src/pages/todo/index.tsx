@@ -2,7 +2,6 @@ import { AppLayout } from '@/components/AppLayout';
 import { Button } from '@/components/common/button/Button';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
-import { TextField } from '@/components/common/input/TextField';
 import { AddTodoDialog } from '@/pages/todo/components/AddTodoDialog';
 import { useTodoDelete } from '@/pages/todo/lib/useTodoDelete';
 import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
@@ -12,7 +11,7 @@ import React, { MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 export const TodoPage: React.FC = () => {
-  const { control, isLoading, isHandleLoading, todos, handleAddTodo, mutate } = useTodoList();
+  const { isLoading, todos, mutate } = useTodoList();
   const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate });
   const { deleteTodo, isSubmitting: isDeleteSubmitting } = useTodoDelete({ mutate });
   const [isOpen, setIsOpen] = React.useState(false);
@@ -27,30 +26,16 @@ export const TodoPage: React.FC = () => {
     triggerRef.current?.focus();
   }, []);
 
-  const disabled = isHandleLoading || isUpdateSubmitting || isDeleteSubmitting;
+  const disabled = isUpdateSubmitting || isDeleteSubmitting;
 
   return (
     <AppLayout>
       <div className="flex flex-col gap-2 px-4 py-2">
-        <h1 className="text-3xl">ToDo App</h1>
-        <Button onClick={openAddDialog}>追加</Button>
-        <div className="flex w-full">
-          <div>
-            <TextField
-              control={control}
-              name="title"
-              placeholder="Add new todo"
-              required
-              type="text"
-              style={{ flex: 1 }}
-            />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Button onClick={handleAddTodo} disabled={isHandleLoading}>
-              Add
-            </Button>
-          </div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl">ToDo App</h1>
+          <Button onClick={openAddDialog}>追加</Button>
         </div>
+
         <div style={{ display: 'flex', flexFlow: 'column', gap: 8 }}>
           {isLoading && (
             <>
