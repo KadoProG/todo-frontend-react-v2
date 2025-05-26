@@ -1,4 +1,3 @@
-import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
 import { apiClient } from '@/lib/apiClient';
 import useSWR from 'swr';
 
@@ -19,16 +18,12 @@ export const useTaskActions = (id: string | undefined) => {
             task: Number(params.task),
           },
         },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
-        },
       }),
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       onError: (error) => {
-        // eslint-disable-next-line
         console.error(error);
       },
     }

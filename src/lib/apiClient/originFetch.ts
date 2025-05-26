@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
+import { store } from '@/lib/store';
 
 export const originFetch: typeof fetch = (input, init) => {
   const request = fetch(input, {
@@ -7,7 +7,7 @@ export const originFetch: typeof fetch = (input, init) => {
       ...init?.headers,
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
+      Authorization: `Bearer ${store.get('token')}`,
     },
   }).then((res) => res.clone());
 

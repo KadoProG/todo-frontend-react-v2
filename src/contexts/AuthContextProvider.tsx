@@ -1,26 +1,15 @@
-import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
 import { AuthContextType, authContext } from '@/contexts/authContext';
 import { apiClient } from '@/lib/apiClient';
-import React from 'react';
+import { store } from '@/lib/store';
+import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (props) => {
-  const [status, setStatus] = React.useState<AuthContextType['status']>('unverified');
-  const [user, setUser] = React.useState<User | null>(null);
-  const [token, setToken] = React.useState<string>(
-    localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY) || ''
-  );
+export const AuthContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [status, setStatus] = useState<AuthContextType['status']>('unverified');
+  const [user, setUser] = useState<User | null>(null);
 
-  const me = React.useCallback(async () => {
-    if (!token) {
-      setUser(null);
-      setStatus('unauthenticated');
-      return;
-    }
-
+  const me = useCallback(async () => {
     try {
-      const response = await apiClient.GET('/v1/users/me', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await apiClient.GET('/v1/users/me');
       if (response.data?.user) {
         setUser(response.data?.user);
         setStatus('authenticated');
@@ -29,26 +18,25 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (pro
         setStatus('unauthenticated');
       }
     } catch (error) {
-      console.error(error); // eslint-disable-line no-console
+      console.error(error);
       setUser(null);
       setStatus('unauthenticated');
     }
-  }, [token]);
+  }, []);
 
-  const updateToken = React.useCallback(
+  const updateToken = useCallback(
     (newToken: string) => {
-      setToken(newToken);
-      localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, newToken);
-      setTimeout(() => me(), 0);
+      store.set('token', newToken);
+      me();
     },
     [me]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     me();
   }, [me]);
 
-  const value = React.useMemo(() => ({ status, user, updateToken }), [status, user, updateToken]);
+  const value = useMemo(() => ({ status, user, updateToken }), [status, user, updateToken]);
 
-  return <authContext.Provider value={value}>{props.children}</authContext.Provider>;
+  return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };

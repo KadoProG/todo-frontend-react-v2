@@ -1,6 +1,5 @@
 import { AppLayout } from '@/components/AppLayout';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
-import { LOCAL_STORAGE_TOKEN_KEY } from '@/const/const';
 import { apiClient } from '@/lib/apiClient';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -34,16 +33,12 @@ export const TodoDetailPage: React.FC = () => {
             task: Number(params.task),
           },
         },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
-        },
       }),
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       onError: (error) => {
-        // eslint-disable-next-line
         console.error(error);
         setIsNotFound(true);
       },
