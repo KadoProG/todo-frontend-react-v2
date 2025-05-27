@@ -1,10 +1,10 @@
-import { useSnackbarContext } from '@/components/common/feedback/snackbarContext';
+import { SnackbarContext } from '@/components/Feedback/Snackbar';
 import { apiClient } from '@/lib/apiClient';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 export const useTodoUpdate = ({ mutate }: { mutate?: () => void }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { showSnackbar } = useSnackbarContext();
+  const { showSnackbar } = useContext(SnackbarContext);
 
   const updateTodo = useCallback(
     async (

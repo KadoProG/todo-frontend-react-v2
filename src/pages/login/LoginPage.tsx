@@ -1,14 +1,14 @@
 import { Button } from '@/components/common/button/Button';
-import { useSnackbarContext } from '@/components/common/feedback/snackbarContext';
 import { TextField } from '@/components/common/input/TextField';
+import { SnackbarContext } from '@/components/Feedback/Snackbar';
 import { useAuthContext } from '@/contexts/authContext';
 import axios from '@/libs/axios';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const LoginPage: React.FC = () => {
   const { updateToken } = useAuthContext();
-  const { showSnackbar } = useSnackbarContext();
+  const { showSnackbar } = useContext(SnackbarContext);
   const { control, handleSubmit } = useForm<{
     email: string;
     password: string;
