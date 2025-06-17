@@ -2,8 +2,8 @@ import { Button } from '@/components/common/button/Button';
 import { TextField } from '@/components/common/input/TextField';
 import { SnackbarContext } from '@/components/Feedback/Snackbar';
 import { AuthContext } from '@/contexts/auth';
+import { apiClient } from '@/lib/apiClient';
 import { store } from '@/lib/store';
-import axios from '@/libs/axios';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -25,7 +25,18 @@ export const LoginPage: React.FC = () => {
       e.preventDefault();
       handleSubmit(async (formData) => {
         try {
-          const response = await axios.post('/v1/login', formData);
+          const response = await apiClient.POST('/v1/login', {
+            body: {
+              email: formData.email,
+              password: formData.password,
+            },
+          });
+          if (!response.response.ok) {
+            throw new Error('ログインに失敗しました');
+          }
+          if (!response.data?.token) {
+            throw new Error('予期せぬレスポンスエラー');
+          }
           store.set('token', response.data.token);
           mutate();
           showSnackbar({ message: 'ログインしました', type: 'success' });

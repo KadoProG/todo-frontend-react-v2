@@ -27,11 +27,11 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "`LoginCollection`",
             "content": {
               "application\/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#\/components\/schemas\/LoginCollection"
                 }
               }
             }
@@ -999,6 +999,16 @@
   },
   "components": {
     "schemas": {
+      "LoginCollection": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": ["token"],
+        "title": "LoginCollection"
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {

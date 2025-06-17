@@ -216,6 +216,10 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    /** LoginCollection */
+    LoginCollection: {
+      token: string;
+    };
     /** LoginRequest */
     LoginRequest: {
       /** Format: email */
@@ -349,12 +353,13 @@ export interface operations {
       };
     };
     responses: {
+      /** @description `LoginCollection` */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'application/json': components['schemas']['LoginCollection'];
         };
       };
       401: {
