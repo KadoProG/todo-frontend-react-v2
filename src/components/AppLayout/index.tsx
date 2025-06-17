@@ -1,12 +1,13 @@
 import { SideBar } from '@/components/AppLayout/SideBar';
-import { useAuthContext } from '@/contexts/authContext';
+import { AuthContext } from '@/contexts/auth';
+import { useContext } from 'react';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const AppLayout: React.FC<Props> = ({ children }) => {
-  const { user } = useAuthContext();
+  const { user } = useContext(AuthContext);
   return (
     <div className="flex h-screen">
       <SideBar />

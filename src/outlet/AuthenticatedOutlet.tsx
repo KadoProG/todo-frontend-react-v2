@@ -1,12 +1,12 @@
-import { useAuthContext } from '@/contexts/authContext';
-import React from 'react';
+import { AuthContext } from '@/contexts/auth';
+import React, { useContext } from 'react';
 import { Navigate, Outlet, RouteProps } from 'react-router-dom';
 
 /**
  * ログイン済みの場合のルーティングのためのコンポーネント
  */
 export const AuthenticatedOutlet: React.FC<RouteProps> = () => {
-  const { status } = useAuthContext();
+  const { status } = useContext(AuthContext);
 
   if (status === 'authenticated') {
     return <Outlet />;

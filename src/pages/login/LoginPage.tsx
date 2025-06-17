@@ -1,13 +1,14 @@
 import { Button } from '@/components/common/button/Button';
 import { TextField } from '@/components/common/input/TextField';
 import { SnackbarContext } from '@/components/Feedback/Snackbar';
-import { useAuthContext } from '@/contexts/authContext';
+import { AuthContext } from '@/contexts/auth';
+import { store } from '@/lib/store';
 import axios from '@/libs/axios';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const LoginPage: React.FC = () => {
-  const { updateToken } = useAuthContext();
+  const { mutate } = useContext(AuthContext);
   const { showSnackbar } = useContext(SnackbarContext);
   const { control, handleSubmit } = useForm<{
     email: string;
@@ -25,7 +26,8 @@ export const LoginPage: React.FC = () => {
       handleSubmit(async (formData) => {
         try {
           const response = await axios.post('/v1/login', formData);
-          updateToken(response.data.token);
+          store.set('token', response.data.token);
+          mutate();
           showSnackbar({ message: 'ログインしました', type: 'success' });
         } catch (error) {
           showSnackbar({ message: 'ログインに失敗しました', type: 'warning' });
@@ -33,7 +35,7 @@ export const LoginPage: React.FC = () => {
         }
       })();
     },
-    [handleSubmit, showSnackbar, updateToken]
+    [handleSubmit, showSnackbar, mutate]
   );
 
   return (

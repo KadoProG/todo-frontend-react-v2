@@ -1,18 +1,18 @@
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
-import { useAuthContext } from '@/contexts/authContext';
 import { HomePage } from '@/pages/home/HomePage';
 import { LoginPage } from '@/pages/login/LoginPage';
 import { TodoDetailPage } from '@/pages/todo/[id]';
 import { AuthenticatedOutlet } from '@/outlet/AuthenticatedOutlet';
 import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { TodoPage } from '@/pages/todo';
+import { AuthContext } from '@/contexts/auth';
 
 export const Router: React.FC = () => {
-  const { status } = useAuthContext();
+  const { status } = useContext(AuthContext);
 
-  if (status === 'unverified') {
+  if (status === 'pending') {
     return <LoadingWithMessage message="ユーザ認証を実施しています..." />;
   }
 
