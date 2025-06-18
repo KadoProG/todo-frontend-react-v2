@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { store } from '@/lib/store';
+import { store } from '.';
 
 // localStorageのモック
 const localStorageMock = {
