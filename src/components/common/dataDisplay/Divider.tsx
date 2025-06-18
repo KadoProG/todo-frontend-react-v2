@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const Divider: React.FC = () => (
-  <div style={{ width: '100%', height: 1, backgroundColor: 'var(--divider)' }} />
+  <div data-testid="divider" className="h-px w-full bg-gray-200 dark:bg-gray-700" />
 );
