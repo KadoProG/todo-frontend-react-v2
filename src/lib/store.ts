@@ -28,7 +28,7 @@ export const store = {
 
   set: <K extends keyof LocalStorageItem>(key: K, value: LocalStorageItem[K]) => {
     const current = localStorage.getItem(LOCAL_STORAGE_KEY);
-    let parsed: LocalStorageItem = defaultLocalStorageItem;
+    let parsed: LocalStorageItem = { ...defaultLocalStorageItem };
 
     if (current) {
       try {
