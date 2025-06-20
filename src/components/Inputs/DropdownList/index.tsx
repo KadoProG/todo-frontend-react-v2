@@ -16,6 +16,9 @@ export const DropdownList: FC<Props> = ({ titleLabel, id, options, value, setVal
     [options, value]
   );
 
+  // 安全なインデックス取得（-1の場合は0を返す）
+  const safeSelectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
+
   const buttonRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -146,7 +149,7 @@ export const DropdownList: FC<Props> = ({ titleLabel, id, options, value, setVal
         id="select-button"
         className={`w-full cursor-pointer hover:bg-bg-base-hover dark:hover:bg-bg-base-hover-dark ${isOpen ? 'rounded-t' : 'rounded'} border border-border p-2 dark:border-border-dark`}
       >
-        {options[selectedIndex].label}
+        {options[safeSelectedIndex]?.label || ''}
       </button>
       {isOpen && (
         <ul
@@ -161,7 +164,7 @@ export const DropdownList: FC<Props> = ({ titleLabel, id, options, value, setVal
             <li
               key={option.value}
               role="option"
-              aria-selected={selectedIndex === index}
+              aria-selected={safeSelectedIndex === index}
               tabIndex={highlightedIndex === index ? 0 : -1}
               onClick={() => selectOption(index)}
               onMouseEnter={() => setHighlightedIndex(index)}
