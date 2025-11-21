@@ -1,6 +1,7 @@
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { HomePage } from '@/pages/home/HomePage';
 import { LoginPage } from '@/pages/login/LoginPage';
+import { RegisterPage } from '@/pages/register/RegisterPage';
 import { TodoDetailPage } from '@/pages/todo/[id]';
 import { AuthenticatedOutlet } from '@/outlet/AuthenticatedOutlet';
 import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
@@ -31,6 +32,7 @@ export const Router: React.FC = () => {
         <Route element={<UnauthenticatedOutlet />}>
           {/* 未ログインのルーティング */}
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Route>
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
