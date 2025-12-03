@@ -57,10 +57,7 @@ describe('useTodoDelete', () => {
       message: 'タスクの削除に失敗しました',
       type: 'error',
     });
-    expect(mockShowSnackbar).toHaveBeenCalledWith({
-      message: 'タスクを削除しました',
-      type: 'success',
-    });
+    expect(mockShowSnackbar).toHaveBeenCalledTimes(1);
   });
 
   it('例外時もエラースナックバー', async () => {
@@ -73,10 +70,7 @@ describe('useTodoDelete', () => {
       message: 'タスクの削除に失敗しました',
       type: 'error',
     });
-    expect(mockShowSnackbar).toHaveBeenCalledWith({
-      message: 'タスクを削除しました',
-      type: 'success',
-    });
+    expect(mockShowSnackbar).toHaveBeenCalledTimes(1);
   });
 
   it('isSubmittingの状態が正しく変化する', async () => {

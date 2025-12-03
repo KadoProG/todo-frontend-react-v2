@@ -2,19 +2,26 @@ import { AppLayout } from '@/components/AppLayout';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { apiClient } from '@/lib/apiClient';
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { useTaskActions } from '@/pages/todo/[id]/lib/useTaskActions';
 import { useAddTaskAction } from '@/pages/todo/[id]/lib/useAddTaskAction';
 import { useEditTaskAction } from '@/pages/todo/[id]/lib/useEditTaskAction';
 import { Button } from '@/components/common/button/Button';
 import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
+import { useTodoDelete } from '@/pages/todo/lib/useTodoDelete';
 import { TaskEditForm } from '@/pages/todo/[id]/components/TaskEditForm';
 import { TaskDisplay } from '@/pages/todo/[id]/components/TaskDisplay';
+import { DialogBase } from '@/components/Feedback/DialogBase';
+import { DialogHeader } from '@/components/common/feedback/DialogHeader';
+import { DialogContent } from '@/components/common/feedback/DialogContent';
+import { DialogActions } from '@/components/common/feedback/DialogActions';
 
 export const TodoDetailPage: React.FC = () => {
   const [isNotFound, setIsNotFound] = React.useState<boolean>(false);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState<boolean>(false);
+  const navigate = useNavigate();
   const { id } = useParams();
   const { actions, isLoading: isActionsLoading, mutate } = useTaskActions(id);
   const { addTaskAction, isSubmitting: isAddTaskSubmitting } = useAddTaskAction(id, mutate);
@@ -55,6 +62,9 @@ export const TodoDetailPage: React.FC = () => {
 
   const task = data?.data?.task;
   const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate: mutateTask });
+  const { deleteTodo, isSubmitting: isDeleteSubmitting } = useTodoDelete({
+    mutate: mutateTask,
+  });
 
   const handleSubmit = React.useCallback(
     async (formData: { title: string; description: string; expired_at: string }) => {
@@ -77,6 +87,23 @@ export const TodoDetailPage: React.FC = () => {
     setIsEditing(false);
   }, []);
 
+  const handleDeleteClick = React.useCallback(() => {
+    setIsDeleteDialogOpen(true);
+  }, []);
+
+  const handleDeleteConfirm = React.useCallback(async () => {
+    if (!id) return;
+    const success = await deleteTodo(Number(id));
+    if (success) {
+      setIsDeleteDialogOpen(false);
+      navigate('/todo');
+    }
+  }, [id, deleteTodo, navigate]);
+
+  const handleDeleteCancel = React.useCallback(() => {
+    setIsDeleteDialogOpen(false);
+  }, []);
+
   return (
     <AppLayout>
       <h1>Todo Detail</h1>
@@ -93,7 +120,8 @@ export const TodoDetailPage: React.FC = () => {
             <TaskDisplay
               task={task}
               onEdit={() => setIsEditing(true)}
-              isSubmitting={isUpdateSubmitting}
+              onDelete={handleDeleteClick}
+              isSubmitting={isUpdateSubmitting || isDeleteSubmitting}
             />
           ) : (
             <TaskEditForm
@@ -147,6 +175,21 @@ export const TodoDetailPage: React.FC = () => {
         }
       </div>
       <Link to="/todo">前のページに戻る</Link>
+      <DialogBase isOpen={isDeleteDialogOpen} onClose={handleDeleteCancel}>
+        <DialogHeader title="タスクの削除" onClose={handleDeleteCancel} />
+        <DialogContent>
+          <p>このタスクを削除してもよろしいですか？</p>
+          <p>この操作は取り消せません。</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} disabled={isDeleteSubmitting}>
+            キャンセル
+          </Button>
+          <Button onClick={handleDeleteConfirm} disabled={isDeleteSubmitting}>
+            削除
+          </Button>
+        </DialogActions>
+      </DialogBase>
     </AppLayout>
   );
 };
