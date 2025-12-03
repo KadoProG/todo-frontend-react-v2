@@ -8,9 +8,13 @@ import { useTaskActions } from '@/pages/todo/[id]/lib/useTaskActions';
 import { useAddTaskAction } from '@/pages/todo/[id]/lib/useAddTaskAction';
 import { useEditTaskAction } from '@/pages/todo/[id]/lib/useEditTaskAction';
 import { Button } from '@/components/common/button/Button';
+import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
+import { TaskEditForm } from '@/pages/todo/[id]/components/TaskEditForm';
+import { TaskDisplay } from '@/pages/todo/[id]/components/TaskDisplay';
 
 export const TodoDetailPage: React.FC = () => {
   const [isNotFound, setIsNotFound] = React.useState<boolean>(false);
+  const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const { id } = useParams();
   const { actions, isLoading: isActionsLoading, mutate } = useTaskActions(id);
   const { addTaskAction, isSubmitting: isAddTaskSubmitting } = useAddTaskAction(id, mutate);
@@ -24,7 +28,11 @@ export const TodoDetailPage: React.FC = () => {
       }
     : null;
 
-  const { data, isLoading } = useSWR(
+  const {
+    data,
+    isLoading,
+    mutate: mutateTask,
+  } = useSWR(
     params,
     (params) =>
       apiClient.GET('/v1/tasks/{task}', {
@@ -46,6 +54,27 @@ export const TodoDetailPage: React.FC = () => {
   );
 
   const task = data?.data?.task;
+  const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate: mutateTask });
+
+  const handleSubmit = React.useCallback(
+    async (formData: { title: string; description: string }) => {
+      if (!id || !task) return false;
+      const success = await updateTodo(Number(id), {
+        title: formData.title,
+        description: formData.description,
+      });
+      if (success) {
+        setIsEditing(false);
+        return true;
+      }
+      return false;
+    },
+    [id, task, updateTodo]
+  );
+
+  const handleCancel = React.useCallback(() => {
+    setIsEditing(false);
+  }, []);
 
   return (
     <AppLayout>
@@ -58,15 +87,21 @@ export const TodoDetailPage: React.FC = () => {
             <Skeleton />
           </>
         )}
-        {task && (
-          <>
-            <p>タイトル：{task.title}</p>
-            <p>
-              <small>説明：{task.description}</small>
-            </p>
-            <p>状態：{task.is_done ? '完了' : '未完了'}</p>
-          </>
-        )}
+        {task &&
+          (!isEditing ? (
+            <TaskDisplay
+              task={task}
+              onEdit={() => setIsEditing(true)}
+              isSubmitting={isUpdateSubmitting}
+            />
+          ) : (
+            <TaskEditForm
+              task={task}
+              onSubmit={handleSubmit}
+              onCancel={handleCancel}
+              isSubmitting={isUpdateSubmitting}
+            />
+          ))}
         <h3>アクション</h3>
         <div>
           <Button onClick={addTaskAction} disabled={isSubmitting}>

@@ -43,7 +43,7 @@ export default tseslint.config({
     // 余計な<></>が入っていないか確認する
     'react/jsx-no-useless-fragment': ['warn'],
     // () => {return <></>}ではなく、()=> <></>と表記するように
-    'arrow-body-style': ['error'],
+    'arrow-body-style': ['off'],
     // importは一番最初に書くように
     // 'import/first': 'error',
     // 比較演算子の"=="を”＝＝＝”に修正する
