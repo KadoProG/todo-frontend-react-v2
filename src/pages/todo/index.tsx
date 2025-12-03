@@ -6,6 +6,10 @@ import { AddTodoDialog } from '@/pages/todo/components/AddTodoDialog';
 import { useTodoDelete } from '@/pages/todo/lib/useTodoDelete';
 import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
 import { useTodoList } from '@/pages/todo/useTodoList';
+import { DialogBase } from '@/components/Feedback/DialogBase';
+import { DialogHeader } from '@/components/common/feedback/DialogHeader';
+import { DialogContent } from '@/components/common/feedback/DialogContent';
+import { DialogActions } from '@/components/common/feedback/DialogActions';
 import dayjs from 'dayjs';
 import React, { MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -15,6 +19,8 @@ export const TodoPage: React.FC = () => {
   const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate });
   const { deleteTodo, isSubmitting: isDeleteSubmitting } = useTodoDelete({ mutate });
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+  const [deleteTargetId, setDeleteTargetId] = React.useState<number | null>(null);
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
 
   const openAddDialog = useCallback((e: MouseEvent<HTMLButtonElement>) => {
@@ -24,6 +30,23 @@ export const TodoPage: React.FC = () => {
   const closeAddDialog = useCallback(() => {
     setIsOpen(false);
     triggerRef.current?.focus();
+  }, []);
+
+  const handleDeleteClick = useCallback((taskId: number) => {
+    setDeleteTargetId(taskId);
+    setIsDeleteDialogOpen(true);
+  }, []);
+
+  const handleDeleteConfirm = useCallback(async () => {
+    if (deleteTargetId === null) return;
+    await deleteTodo(deleteTargetId);
+    setIsDeleteDialogOpen(false);
+    setDeleteTargetId(null);
+  }, [deleteTargetId, deleteTodo]);
+
+  const handleDeleteCancel = useCallback(() => {
+    setIsDeleteDialogOpen(false);
+    setDeleteTargetId(null);
   }, []);
 
   const disabled = isUpdateSubmitting || isDeleteSubmitting;
@@ -72,7 +95,7 @@ export const TodoPage: React.FC = () => {
                   >
                     {todo.is_done ? '未完了にする' : '完了にする'}
                   </Button>
-                  <DeleteButton onClick={() => deleteTodo(todo.id)} disabled={disabled} />
+                  <DeleteButton onClick={() => handleDeleteClick(todo.id)} disabled={disabled} />
                 </div>
               </div>
             </div>
@@ -86,6 +109,23 @@ export const TodoPage: React.FC = () => {
           if (isMutate) mutate();
         }}
       />
+      <DialogBase isOpen={isDeleteDialogOpen} onClose={handleDeleteCancel}>
+        <DialogHeader title="タスクの削除" onClose={handleDeleteCancel} />
+        <DialogContent>
+          <p>このタスクを削除してもよろしいですか？</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            この操作は取り消せません。
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} disabled={isDeleteSubmitting}>
+            キャンセル
+          </Button>
+          <Button onClick={handleDeleteConfirm} disabled={isDeleteSubmitting}>
+            削除
+          </Button>
+        </DialogActions>
+      </DialogBase>
     </AppLayout>
   );
 };
