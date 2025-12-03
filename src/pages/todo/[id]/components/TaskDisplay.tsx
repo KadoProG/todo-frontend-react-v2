@@ -14,7 +14,7 @@ type TaskDisplayProps = {
 export const TaskDisplay: React.FC<TaskDisplayProps> = ({ task, onEdit, isSubmitting = false }) => {
   return (
     <>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div className="flex items-center gap-2">
         <p>タイトル：{task.title}</p>
         <Button onClick={onEdit} disabled={isSubmitting}>
           編集

@@ -79,7 +79,7 @@ export const TodoDetailPage: React.FC = () => {
   return (
     <AppLayout>
       <h1>Todo Detail</h1>
-      <div style={{ display: 'flex', flexFlow: 'column', gap: 8, padding: 8 }}>
+      <div className="flex flex-col gap-2 p-2">
         {isLoading && (
           <>
             <Skeleton />
@@ -108,7 +108,7 @@ export const TodoDetailPage: React.FC = () => {
             アクション追加
           </Button>
         </div>
-        <div style={{ display: 'flex', flexFlow: 'column', gap: 8, padding: 8 }}>
+        <div className="flex flex-col gap-2 p-2">
           {isActionsLoading && (
             <>
               <Skeleton />
@@ -119,7 +119,7 @@ export const TodoDetailPage: React.FC = () => {
           <div>
             {actions?.map((action) => (
               <div key={action.id}>
-                <label style={{ display: 'flex', gap: 8 }}>
+                <label className="flex gap-2">
                   <input
                     type="checkbox"
                     checked={action.is_done}
