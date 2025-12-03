@@ -19,6 +19,12 @@ export const useTodoDelete = ({ mutate }: { mutate?: () => void }) => {
         if (!res.response.ok) {
           throw new Error('Failed to delete task');
         }
+        showSnackbar({
+          message: 'タスクを削除しました',
+          type: 'success',
+        });
+        mutate?.();
+        return true;
       } catch (e) {
         setIsSubmitting(false);
         console.error(e);
@@ -26,12 +32,8 @@ export const useTodoDelete = ({ mutate }: { mutate?: () => void }) => {
           message: 'タスクの削除に失敗しました',
           type: 'error',
         });
+        return false;
       }
-      showSnackbar({
-        message: 'タスクを削除しました',
-        type: 'success',
-      });
-      mutate?.();
     },
     [showSnackbar, mutate]
   );

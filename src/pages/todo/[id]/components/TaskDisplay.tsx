@@ -1,4 +1,5 @@
 import { Button } from '@/components/common/button/Button';
+import { DeleteButton } from '@/components/common/button/DeleteButton';
 import dayjs from 'dayjs';
 import React from 'react';
 
@@ -10,16 +11,25 @@ type TaskDisplayProps = {
     expired_at: string | null;
   };
   onEdit: () => void;
+  onDelete: () => void;
   isSubmitting?: boolean;
 };
 
-export const TaskDisplay: React.FC<TaskDisplayProps> = ({ task, onEdit, isSubmitting = false }) => {
+export const TaskDisplay: React.FC<TaskDisplayProps> = ({
+  task,
+  onEdit,
+  onDelete,
+  isSubmitting = false,
+}) => {
   return (
     <div className="relative border border-border p-2 dark:border-border-dark">
       <p className="text-lg font-bold">{task.title}</p>
-      <Button onClick={onEdit} disabled={isSubmitting} className="absolute top-2 right-2">
-        編集
-      </Button>
+      <div className="absolute top-2 right-2 flex gap-2">
+        <Button onClick={onEdit} disabled={isSubmitting}>
+          編集
+        </Button>
+        <DeleteButton onClick={onDelete} disabled={isSubmitting} />
+      </div>
       <p>説明：{task.description}</p>
       <p>状態：{task.is_done ? '完了' : '未完了'}</p>
       <p>
