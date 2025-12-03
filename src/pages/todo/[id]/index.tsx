@@ -57,11 +57,12 @@ export const TodoDetailPage: React.FC = () => {
   const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate: mutateTask });
 
   const handleSubmit = React.useCallback(
-    async (formData: { title: string; description: string }) => {
+    async (formData: { title: string; description: string; expired_at: string }) => {
       if (!id || !task) return false;
       const success = await updateTodo(Number(id), {
         title: formData.title,
         description: formData.description,
+        expired_at: formData.expired_at || undefined,
       });
       if (success) {
         setIsEditing(false);
