@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .a {
+        fill: none;
+        stroke: #231815;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <title>1038_tr_h</title>
+  <g>
+    <g>
+      <line class="a" x1="21.57" y1="23.54" x2="21.57" y2="31.17"/>
+      <line class="a" x1="26.43" y1="23.54" x2="26.43" y2="31.17"/>
+    </g>
+    <polyline class="a" points="32.17 18.68 30.18 37 17.82 37 15.82 18.68"/>
+    <rect class="a" x="14.5" y="14.84" width="19" height="3.84"/>
+    <polyline class="a" points="20.47 14.84 20.47 11 27.53 11 27.53 14.84"/>
+  </g>
+</svg>
