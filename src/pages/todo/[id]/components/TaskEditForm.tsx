@@ -56,7 +56,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({
   }, [task, reset, onCancel]);
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-2">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col">
       <TextField control={control} name="title" label="タイトル" required disabled={isSubmitting} />
       <TextField control={control} name="description" label="説明" disabled={isSubmitting} />
       <div className="flex gap-2">
