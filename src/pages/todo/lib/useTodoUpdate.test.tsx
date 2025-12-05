@@ -95,6 +95,42 @@ describe('useTodoUpdate', () => {
     });
   });
 
+  it('assigned_user_idsが配列で渡された場合、その配列が送信される', async () => {
+    const mockMutate = vi.fn();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockApiClient.PUT.mockResolvedValue({ response: { ok: true } } as any);
+    const { result } = renderHook(() => useTodoUpdate({ mutate: mockMutate }), {
+      wrapper: TestWrapper,
+    });
+
+    const updateData = {
+      title: '更新されたタスク',
+      assigned_user_ids: [1, 2, 3],
+    };
+
+    await act(async () => {
+      const success = await result.current.updateTodo(1, updateData);
+      expect(success).toBe(true);
+    });
+
+    expect(mockApiClient.PUT).toHaveBeenCalledWith('/v1/tasks/{task}', {
+      params: { path: { task: 1 } },
+      body: {
+        title: '更新されたタスク',
+        description: undefined,
+        is_done: undefined,
+        is_public: undefined,
+        expired_at: null,
+        assigned_user_ids: [1, 2, 3],
+      },
+    });
+    expect(mockShowSnackbar).toHaveBeenCalledWith({
+      message: '内容を更新しました',
+      type: 'success',
+    });
+    expect(mockMutate).toHaveBeenCalled();
+  });
+
   it('mutateが渡されていない場合でも正常に動作する', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockApiClient.PUT.mockResolvedValue({ response: { ok: true } } as any);
