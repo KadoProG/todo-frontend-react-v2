@@ -3,9 +3,9 @@ import { Button } from '@/components/common/button/Button';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { AddTodoDialog } from '@/pages/todo/components/AddTodoDialog';
-import { useTodoDelete } from '@/pages/todo/lib/useTodoDelete';
-import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
-import { useTodoList } from '@/pages/todo/useTodoList';
+import { useTodoDelete } from '@/pages/todo/hooks/useTodoDelete';
+import { useTodoUpdate } from '@/pages/todo/hooks/useTodoUpdate';
+import { useTodoList } from '@/pages/todo/hooks/useTodoList';
 import { DialogBase } from '@/components/Feedback/DialogBase';
 import { DialogHeader } from '@/components/common/feedback/DialogHeader';
 import { DialogContent } from '@/components/common/feedback/DialogContent';
@@ -113,9 +113,7 @@ export const TodoPage: React.FC = () => {
         <DialogHeader title="タスクの削除" onClose={handleDeleteCancel} />
         <DialogContent>
           <p>このタスクを削除してもよろしいですか？</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            この操作は取り消せません。
-          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">この操作は取り消せません。</p>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} disabled={isDeleteSubmitting}>

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
 import React from 'react';
-import { useTodoUpdate } from '@/pages/todo/lib/useTodoUpdate';
+import { useTodoUpdate } from '@/pages/todo/hooks/useTodoUpdate';
 import { SnackbarContext } from '@/components/Feedback/Snackbar';
 import { apiClient } from '@/lib/apiClient';
 
