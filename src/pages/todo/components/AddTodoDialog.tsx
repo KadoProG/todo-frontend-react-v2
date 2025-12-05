@@ -59,7 +59,7 @@ export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
   }, [users]);
 
   return (
-    <DialogBase isOpen={isOpen} onClose={() => onClose()}>
+    <DialogBase isOpen={isOpen} onClose={onClose}>
       <form
         className="flex flex-col"
         onSubmit={(e) => {

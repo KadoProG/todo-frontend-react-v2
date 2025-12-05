@@ -80,7 +80,7 @@ export const DialogBase: FC<Props> = ({ isOpen, onClose, children }) => {
   return (
     <div
       className="fixed top-0 left-0 z-10 flex h-svh w-svw items-center justify-center bg-[rgba(0,0,0,0.1)]"
-      onClick={onClose}
+      onClick={() => onClose()}
       aria-modal="true"
       role="dialog"
     >
