@@ -55,6 +55,7 @@ describe('useTodoUpdate', () => {
         is_done: true,
         is_public: false,
         expired_at: new Date('2024-12-31T23:59:59').toISOString(),
+        assigned_user_ids: [],
       },
     });
     expect(mockShowSnackbar).toHaveBeenCalledWith({
@@ -89,6 +90,7 @@ describe('useTodoUpdate', () => {
         is_done: undefined,
         is_public: undefined,
         expired_at: null,
+        assigned_user_ids: [],
       },
     });
   });
