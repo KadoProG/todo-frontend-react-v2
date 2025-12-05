@@ -1,56 +1,46 @@
-# Todo App (frontend)
+# React + Vite Todo App (frontend)
 
-https://github.com/KadoProG/laravel-todo-app-v2
+React + Viteで実装されたTODOアプリケーション フロントエンド
 
-に対するフロントエンドですね
+---
 
-# React + TypeScript + Vite
+## [KadoProG](https://github.com/KadoProG) の TODO アプリケーションシリーズ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### v1
 
-Currently, two official plugins are available:
+ユーザ認証と TODO 管理ができるアプリケーション。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React**（[todo-frontend-react](https://github.com/KadoProG/todo-frontend-react)）
+- **Laravel**（[laravel-todo-app](https://github.com/KadoProG/laravel-todo-app)）
 
-## Expanding the ESLint configuration
+### v2
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+ユーザ認証と、作成者と担当者の概念を加えた TODO アプリケーション。TODO には小タスクを持たせられる。
 
-- Configure the top-level `parserOptions` property like this:
+- **React + Vite**（[todo-frontend-react-v2](https://github.com/KadoProG/todo-frontend-react-v2)） ← 本リポジトリ
+- **Next.js**（[nextjs-practice-todo](https://github.com/KadoProG/nextjs-practice-todo)）
+- **Vue**（[vue-practice-todo-app](https://github.com/KadoProG/vue-practice-todo-app)）
+- **Laravel**（[laravel-todo-app-v2](https://github.com/KadoProG/laravel-todo-app-v2)）
+- **Kotlin Spring Boot**（[kotlin-spring-boot-prac](https://github.com/KadoProG/kotlin-spring-boot-prac)）
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 環境要件
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+- Node
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
+## セットアップ
+
+```shell
+# 環境変数のコピー
+cp .env.example .env
+
+# パッケージのインストール
+npm ci
+
+# ローカル環境の起動（ http://localhost:5173 で起動）
+npm run dev
+
+# ビルド
+npm run build
 ```
