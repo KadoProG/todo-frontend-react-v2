@@ -23,9 +23,6 @@ export const useTaskActions = (id: string | undefined) => {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      onError: (error) => {
-        console.error(error);
-      },
     }
   );
   const actions = data?.data?.actions;
