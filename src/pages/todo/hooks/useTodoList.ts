@@ -10,9 +10,6 @@ export const useTodoList = () => {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      onError: (error) => {
-        console.error(error);
-      },
     }
   );
 
