@@ -15,6 +15,7 @@ export const useTodoUpdate = ({ mutate }: { mutate?: () => void }) => {
         is_done?: boolean;
         is_public?: boolean;
         expired_at?: string;
+        assigned_user_ids?: number[];
       }
     ) => {
       try {
@@ -27,6 +28,7 @@ export const useTodoUpdate = ({ mutate }: { mutate?: () => void }) => {
             is_done: data.is_done,
             is_public: data.is_public,
             expired_at: data.expired_at ? new Date(data.expired_at).toISOString() : null,
+            assigned_user_ids: data.assigned_user_ids ? data.assigned_user_ids : [],
           },
         });
         setIsSubmitting(false);

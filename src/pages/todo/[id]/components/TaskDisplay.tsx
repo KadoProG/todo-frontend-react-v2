@@ -9,6 +9,7 @@ type TaskDisplayProps = {
     description: string | null;
     is_done: boolean;
     expired_at: string | null;
+    assigned_users?: { id: number; name: string; email: string }[];
   };
   onEdit: () => void;
   onDelete: () => void;
@@ -34,6 +35,12 @@ export const TaskDisplay: React.FC<TaskDisplayProps> = ({
       <p>状態：{task.is_done ? '完了' : '未完了'}</p>
       <p>
         期限：{task.expired_at ? dayjs(task.expired_at).format('YYYY年MM月DD日 HH:mm') : 'なし'}
+      </p>
+      <p>
+        担当者：
+        {task.assigned_users && task.assigned_users.length > 0
+          ? task.assigned_users.map((user) => user.name).join(', ')
+          : 'なし'}
       </p>
     </div>
   );
