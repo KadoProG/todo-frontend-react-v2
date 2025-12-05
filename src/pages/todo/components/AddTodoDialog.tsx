@@ -1,8 +1,10 @@
 import { Select } from '@/components/common/input/Select';
 import { TextField } from '@/components/common/input/TextField';
+import { MultiSelect } from '@/components/common/input/MultiSelect';
 import { DialogBase } from '@/components/Feedback/DialogBase';
 import { useTodoCreate } from '@/pages/todo/lib/useTodoCreate';
-import { FC, useCallback } from 'react';
+import { useUsers } from '@/pages/todo/lib/useUsers';
+import { FC, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 type Props = {
@@ -11,12 +13,14 @@ type Props = {
 };
 
 export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
+  const { users, isLoading: isUsersLoading } = useUsers();
   const { control, reset, handleSubmit } = useForm<{
     title: string;
     description: string;
     is_done: boolean;
     publicStatus: 'private' | 'public';
     expired_at: string;
+    assigned_user_ids: number[];
   }>({
     defaultValues: {
       title: '',
@@ -24,6 +28,7 @@ export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
       is_done: false,
       publicStatus: 'private',
       expired_at: '',
+      assigned_user_ids: [],
     },
   });
   const { createTodo, isSubmitting } = useTodoCreate({
@@ -40,9 +45,18 @@ export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
         is_done: false,
         is_public: data.publicStatus === 'public',
         expired_at: data.expired_at,
+        assigned_user_ids: data.assigned_user_ids,
       });
     })();
   }, [createTodo, handleSubmit]);
+
+  const userOptions = useMemo(() => {
+    if (!users) return [];
+    return users.map((user) => ({
+      label: user.name,
+      value: user.id,
+    }));
+  }, [users]);
 
   return (
     <DialogBase isOpen={isOpen} onClose={() => onClose()}>
@@ -84,19 +98,15 @@ export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
           label="期限"
           disabled={isSubmitting}
         />
-        {/* <FormSelect
-          label="担当者"
-          options={users
-            .filter((user) => user.role !== 'admin')
-            .map((user) => ({ label: user.name, value: String(user.id) }))}
-          value={assignedUserId}
-          setValue={(value) => {
-            setAssignedUserId(value);
-            setErrorMessage(null);
-          }}
-          showOptionNotSelected="selectable"
-          disabled={isSubmitting}
-        /> */}
+        {!isUsersLoading && (
+          <MultiSelect
+            control={control}
+            name="assigned_user_ids"
+            label="担当者"
+            options={userOptions}
+            disabled={isSubmitting}
+          />
+        )}
         <div /> {/* デザイン用 */}
         <button
           className="cursor-pointer rounded-xl bg-bg-active p-3 hover:bg-bg-active-hover dark:bg-bg-active-dark dark:hover:bg-bg-active-hover-dark"
