@@ -2,7 +2,7 @@ import { Button } from '@/components/common/button/Button';
 import { TextField } from '@/components/common/input/TextField';
 import { MultiSelect } from '@/components/common/input/MultiSelect';
 import { useUsers } from '@/pages/todo/lib/useUsers';
-import dayjs from 'dayjs';
+import { formatDateTimeLocal } from '@/utils';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -21,13 +21,6 @@ type TaskEditFormProps = {
   }) => Promise<boolean>;
   onCancel: () => void;
   isSubmitting?: boolean;
-};
-
-// ISO形式の日時文字列をdatetime-local形式に変換
-const formatDateTimeLocal = (isoString: string | null): string => {
-  if (!isoString) return '';
-  // ISO形式（YYYY-MM-DDTHH:mm:ss.sssZ）をdatetime-local形式（YYYY-MM-DDTHH:mm）に変換
-  return dayjs(isoString).format('YYYY-MM-DDTHH:mm');
 };
 
 export const TaskEditForm: React.FC<TaskEditFormProps> = ({
