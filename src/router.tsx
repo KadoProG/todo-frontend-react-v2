@@ -8,6 +8,7 @@ import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
 import React, { useContext } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { TodoPage } from '@/pages/todo';
+import { NotificationPage } from '@/pages/notifications';
 import { AuthContext } from '@/contexts/auth';
 
 export const Router: React.FC = () => {
@@ -27,6 +28,7 @@ export const Router: React.FC = () => {
           {/* ログイン済みのルーティング */}
           <Route path="/todo/:id" element={<TodoDetailPage />} />
           <Route path="/todo" element={<TodoPage />} />
+          <Route path="/notifications" element={<NotificationPage />} />
         </Route>
 
         <Route element={<UnauthenticatedOutlet />}>
