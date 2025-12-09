@@ -2,6 +2,7 @@ import { AppLayout } from '@/components/AppLayout';
 import { Button } from '@/components/common/button/Button';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { useNotificationList } from '@/pages/notifications/hooks/useNotificationList';
+import { useNotificationUnreadCount } from '@/pages/notifications/hooks/useNotificationUnreadCount';
 import { useNotificationMarkAsRead } from '@/pages/notifications/hooks/useNotificationMarkAsRead';
 import { useNotificationMarkAllAsRead } from '@/pages/notifications/hooks/useNotificationMarkAllAsRead';
 import dayjs from 'dayjs';
@@ -11,6 +12,7 @@ import { cn } from '@/utils';
 
 export const NotificationPage: React.FC = () => {
   const { isLoading, notifications, unreadCount, mutate } = useNotificationList();
+  const { mutate: mutateUnreadCount } = useNotificationUnreadCount();
   const { markAsRead, isSubmitting: isMarkAsReadSubmitting } = useNotificationMarkAsRead();
   const { markAllAsRead, isSubmitting: isMarkAllAsReadSubmitting } = useNotificationMarkAllAsRead();
 
@@ -18,14 +20,16 @@ export const NotificationPage: React.FC = () => {
     async (notificationId: number) => {
       await markAsRead(notificationId);
       mutate();
+      mutateUnreadCount();
     },
-    [markAsRead, mutate]
+    [markAsRead, mutate, mutateUnreadCount]
   );
 
   const handleMarkAllAsRead = useCallback(async () => {
     await markAllAsRead();
     mutate();
-  }, [markAllAsRead, mutate]);
+    mutateUnreadCount();
+  }, [markAllAsRead, mutate, mutateUnreadCount]);
 
   const disabled = isMarkAsReadSubmitting || isMarkAllAsReadSubmitting;
 
