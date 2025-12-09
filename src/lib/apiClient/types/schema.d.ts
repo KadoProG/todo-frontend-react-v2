@@ -195,6 +195,74 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/v1/notifications': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 通知一覧取得 */
+    get: operations['notification.index'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v1/notifications/unread-count': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 未読通知数取得 */
+    get: operations['notification.unreadCount'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v1/notifications/{notificationId}/read': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** 通知を既読にする */
+    put: operations['notification.markAsRead'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v1/notifications/read-all': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** すべての通知を既読にする */
+    put: operations['notification.markAllAsRead'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/v1/users/me/tasks': {
     parameters: {
       query?: never;
@@ -231,6 +299,15 @@ export interface components {
       name: string;
       is_done?: boolean;
     };
+    /** StoreTaskRequest */
+    StoreTaskRequest: {
+      title: string;
+      is_public: boolean;
+      description?: string | null;
+      /** Format: date-time */
+      expired_at?: string | null;
+      assigned_user_ids?: number[] | null;
+    };
     /** TaskActionResource */
     TaskActionResource: {
       id: number;
@@ -265,6 +342,35 @@ export interface components {
     UpdateTaskActionRequest: {
       name?: string;
       is_done?: boolean;
+    };
+    /** UpdateTaskRequest */
+    UpdateTaskRequest: {
+      title?: string;
+      is_public?: boolean;
+      /** Format: date-time */
+      expired_at?: string | null;
+      description?: string | null;
+      is_done?: boolean;
+      assigned_user_ids?: number[] | null;
+    };
+    /** NotificationResource */
+    NotificationResource: {
+      id: number;
+      title: string;
+      message?: string | null;
+      /** @enum {string} */
+      type:
+        | 'TASK_ASSIGNED'
+        | 'TASK_UPDATED'
+        | 'TASK_COMPLETED'
+        | 'TASK_ACTION_ADDED'
+        | 'TASK_DELETED';
+      related_task_id?: number | null;
+      is_read: boolean;
+      /** Format: date-time */
+      read_at?: string | null;
+      /** Format: date-time */
+      created_at: string;
     };
     /** UserResource */
     UserResource: {
@@ -517,14 +623,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': {
-          title: string;
-          is_public: boolean;
-          description?: string | null;
-          /** Format: date-time */
-          expired_at?: string | null;
-          assigned_user_ids?: number[] | null;
-        };
+        'application/json': components['schemas']['StoreTaskRequest'];
       };
     };
     responses: {
@@ -540,6 +639,7 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
       422: components['responses']['ValidationException'];
     };
   };
@@ -582,15 +682,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': {
-          title?: string;
-          is_public?: boolean;
-          /** Format: date-time */
-          expired_at?: string | null;
-          description?: string | null;
-          is_done?: boolean;
-          assigned_user_ids?: number[] | null;
-        };
+        'application/json': components['schemas']['UpdateTaskRequest'];
       };
     };
     responses: {
@@ -606,6 +698,7 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
       404: components['responses']['ModelNotFoundException'];
       422: components['responses']['ValidationException'];
     };
@@ -852,6 +945,115 @@ export interface operations {
       };
       401: components['responses']['AuthenticationException'];
       404: components['responses']['ModelNotFoundException'];
+    };
+  };
+  'notification.index': {
+    parameters: {
+      query?: {
+        page?: number;
+        size?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 通知一覧 */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            notifications: components['schemas']['NotificationResource'][];
+            unread_count: number;
+            page: number;
+            size: number;
+            total_pages: number;
+            total_elements: number;
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
+    };
+  };
+  'notification.unreadCount': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 未読通知数 */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            unread_count: number;
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
+    };
+  };
+  'notification.markAsRead': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The notification ID */
+        notificationId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 通知を既読にしました */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            notification: components['schemas']['NotificationResource'];
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
+      404: components['responses']['ModelNotFoundException'];
+    };
+  };
+  'notification.markAllAsRead': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description すべての通知を既読にしました */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @example All notifications marked as read */
+            message: string;
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
     };
   };
   'userMeTask.index': {
