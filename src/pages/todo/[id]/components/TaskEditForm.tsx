@@ -5,14 +5,13 @@ import { useUsers } from '@/pages/todo/hooks/useUsers';
 import { formatDateTimeLocal } from '@/utils';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import type { components } from '@/lib/apiClient/types/schema';
 
 type TaskEditFormProps = {
-  task: {
-    title: string;
-    description: string | null;
-    expired_at: string | null;
-    assigned_users?: { id: number; name: string; email: string }[];
-  };
+  task: Pick<
+    components['schemas']['TaskResource'],
+    'title' | 'description' | 'expired_at' | 'assigned_users'
+  >;
   onSubmit: (data: {
     title: string;
     description: string;
