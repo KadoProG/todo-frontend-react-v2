@@ -2,15 +2,13 @@ import { Button } from '@/components/common/button/Button';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
 import dayjs from 'dayjs';
 import React from 'react';
+import type { components } from '@/lib/apiClient/types/schema';
 
 type TaskDisplayProps = {
-  task: {
-    title: string;
-    description: string | null;
-    is_done: boolean;
-    expired_at: string | null;
-    assigned_users?: { id: number; name: string; email: string }[];
-  };
+  task: Pick<
+    components['schemas']['TaskResource'],
+    'title' | 'description' | 'is_done' | 'expired_at' | 'assigned_users' | 'created_user'
+  >;
   onEdit: () => void;
   onDelete: () => void;
   isSubmitting?: boolean;
@@ -42,6 +40,7 @@ export const TaskDisplay: React.FC<TaskDisplayProps> = ({
           ? task.assigned_users.map((user) => user.name).join(', ')
           : 'なし'}
       </p>
+      <p>作成者：{task.created_user.name}</p>
     </div>
   );
 };
