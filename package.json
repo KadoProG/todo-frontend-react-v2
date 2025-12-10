@@ -15,9 +15,12 @@
     "test:ui": "vitest --ui",
     "test:ui:coverage": "vitest --ui --coverage",
     "prepare": "husky",
-    "schema": "npm run get:api && npm run schema:generate",
-    "get:api": "curl -o .docs/api.json http://localhost:8080/docs/api.json",
-    "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts && prettier --write .docs/api.json",
+    "schema": "npm run get:api && npm run schema:generate:json",
+    "schema:kotlin": "npm run get:api:kotlin && npm run schema:generate:yml",
+    "get:api": "curl -o .docs/api.json http://localhost:8080/docs/api.json && prettier --write .docs/api.json",
+    "get:api:kotlin": "curl -o .docs/api.yml http://localhost:8080/api/api-docs.yaml && prettier --write .docs/api.yml",
+    "schema:generate:json": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts",
+    "schema:generate:yml": "openapi-typescript .docs/api.yml -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts",
     "mock": "prism mock .docs/api.json --port 18080"
   },
   "dependencies": {
