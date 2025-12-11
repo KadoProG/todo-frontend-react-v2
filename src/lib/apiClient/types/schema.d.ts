@@ -294,6 +294,19 @@ export interface components {
       email: string;
       password: string;
     };
+    /** RegisterResource */
+    RegisterResource: {
+      user: {
+        id: string;
+        name: string;
+        email: string;
+        email_verified_at: string;
+        created_at: string;
+        updated_at: string;
+        deleted_at: string;
+      };
+      token: string;
+    };
     /** StoreTaskActionRequest */
     StoreTaskActionRequest: {
       name: string;
@@ -524,12 +537,13 @@ export interface operations {
       };
     };
     responses: {
+      /** @description `RegisterResource` */
       201: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'application/json': components['schemas']['RegisterResource'];
         };
       };
       422: components['responses']['ValidationException'];

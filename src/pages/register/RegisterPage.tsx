@@ -52,7 +52,7 @@ export const RegisterPage: React.FC = () => {
             throw new Error('予期せぬレスポンスエラー');
           }
           // レスポンスはtoken文字列
-          store.set('token', response.data);
+          store.set('token', response.data.token);
           mutate();
           showSnackbar({ message: '登録が完了しました', type: 'success' });
           navigate('/todo');
