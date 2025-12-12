@@ -125,11 +125,11 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "`RegisterResource`",
             "content": {
               "application\/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#\/components\/schemas\/RegisterResource"
                 }
               }
             }
@@ -329,30 +329,7 @@
           "content": {
             "application\/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "maxLength": 255
-                  },
-                  "is_public": {
-                    "type": "boolean"
-                  },
-                  "description": {
-                    "type": ["string", "null"]
-                  },
-                  "expired_at": {
-                    "type": ["string", "null"],
-                    "format": "date-time"
-                  },
-                  "assigned_user_ids": {
-                    "type": ["array", "null"],
-                    "items": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "required": ["title", "is_public"]
+                "$ref": "#\/components\/schemas\/StoreTaskRequest"
               }
             }
           }
@@ -374,11 +351,14 @@
               }
             }
           },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          },
           "422": {
             "$ref": "#\/components\/responses\/ValidationException"
           },
-          "401": {
-            "$ref": "#\/components\/responses\/AuthenticationException"
+          "403": {
+            "$ref": "#\/components\/responses\/AuthorizationException"
           }
         }
       }
@@ -443,32 +423,7 @@
           "content": {
             "application\/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "maxLength": 255
-                  },
-                  "is_public": {
-                    "type": "boolean"
-                  },
-                  "expired_at": {
-                    "type": ["string", "null"],
-                    "format": "date-time"
-                  },
-                  "description": {
-                    "type": ["string", "null"]
-                  },
-                  "is_done": {
-                    "type": "boolean"
-                  },
-                  "assigned_user_ids": {
-                    "type": ["array", "null"],
-                    "items": {
-                      "type": "integer"
-                    }
-                  }
-                }
+                "$ref": "#\/components\/schemas\/UpdateTaskRequest"
               }
             }
           }
@@ -490,14 +445,17 @@
               }
             }
           },
-          "422": {
-            "$ref": "#\/components\/responses\/ValidationException"
-          },
           "404": {
             "$ref": "#\/components\/responses\/ModelNotFoundException"
           },
           "401": {
             "$ref": "#\/components\/responses\/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#\/components\/responses\/ValidationException"
+          },
+          "403": {
+            "$ref": "#\/components\/responses\/AuthorizationException"
           }
         }
       },
@@ -1023,6 +981,51 @@
         "required": ["email", "password"],
         "title": "LoginRequest"
       },
+      "RegisterResource": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "email_verified_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "deleted_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "email",
+              "email_verified_at",
+              "created_at",
+              "updated_at",
+              "deleted_at"
+            ]
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": ["user", "token"],
+        "title": "RegisterResource"
+      },
       "StoreTaskActionRequest": {
         "type": "object",
         "properties": {
@@ -1035,6 +1038,33 @@
         },
         "required": ["name"],
         "title": "StoreTaskActionRequest"
+      },
+      "StoreTaskRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "is_public": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "expired_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "assigned_user_ids": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "integer"
+            }
+          }
+        },
+        "required": ["title", "is_public"],
+        "title": "StoreTaskRequest"
       },
       "TaskActionResource": {
         "type": "object",
@@ -1136,6 +1166,35 @@
           }
         },
         "title": "UpdateTaskActionRequest"
+      },
+      "UpdateTaskRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "is_public": {
+            "type": "boolean"
+          },
+          "expired_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "is_done": {
+            "type": "boolean"
+          },
+          "assigned_user_ids": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "integer"
+            }
+          }
+        },
+        "title": "UpdateTaskRequest"
       },
       "UserResource": {
         "type": "object",
