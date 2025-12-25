@@ -1,4 +1,3 @@
-import styles from '@/components/common/input/Select.module.scss';
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 
 type SelectProps<T extends FieldValues> = UseControllerProps<T> & {
@@ -15,20 +14,34 @@ export const Select = <T extends FieldValues>(props: SelectProps<T>) => {
   });
 
   return (
-    <div className={styles.container} style={props.style}>
+    <div className="relative pb-5" style={props.style}>
       {props.label && (
         <div>
           <label htmlFor={props.name}>{props.label}</label>
-          {props.required && <span className={styles.required}>*</span>}
+          {props.required && (
+            <span className="text-[red]" aria-hidden="true">
+              *
+            </span>
+          )}
         </div>
       )}
-      <select {...field} className={`${styles.Input} ${fieldState.error ? styles.InputError : ''}`}>
+      <select
+        id={props.name}
+        {...field}
+        disabled={props.disabled}
+        className={`w-full rounded border bg-bg-base p-2 text-xl text-text dark:bg-bg-base-dark dark:text-text-dark ${
+          fieldState.error ? 'border-[red]' : 'border-border dark:border-border-dark'
+        }`}
+      >
         {props.options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
       </select>
+      {fieldState.error && (
+        <p className="absolute text-sm text-[red]">{fieldState.error.message}</p>
+      )}
     </div>
   );
 };
