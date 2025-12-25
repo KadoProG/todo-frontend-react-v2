@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook';
+
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -11,7 +14,7 @@ export default [
   // 無視設定
   // =========================
   {
-    ignores: ['dist', 'coverage'],
+    ignores: ['dist', 'coverage', '.storybook/**/*'],
   },
 
   // =========================
@@ -81,7 +84,25 @@ export default [
   },
 
   // =========================
+  // Storybook ファイル用設定
+  // =========================
+  {
+    files: ['**/*.stories.{ts,tsx}', '.storybook/**/*.{ts,tsx}'],
+    rules: {
+      // TypeScriptの型チェック関連のエラーを無効化
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      // 相対インポートの制限を無効化（Storybookでは相対インポートが一般的）
+      'no-restricted-imports': 'off',
+    },
+  },
+
+  // =========================
   // Prettier（必ず最後）
   // =========================
   prettier,
+  ...storybook.configs['flat/recommended'],
 ];

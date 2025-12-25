@@ -36,3 +36,6 @@ dist-ssr
 
 # testing
 /coverage
+
+*storybook.log
+storybook-static
