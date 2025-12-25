@@ -43,24 +43,26 @@ export const DropdownList: FC<Props> = ({ titleLabel, id, options, value, setVal
         case 'ArrowDown':
           e.preventDefault();
           setIsOpen(true);
-          setHighlightedIndex(0);
+          setHighlightedIndex(safeSelectedIndex);
           break;
         case 'ArrowUp':
           e.preventDefault();
           setIsOpen(true);
-          setHighlightedIndex(options.length - 1);
-          break;
-        case 'Enter':
-        case ' ':
-          e.preventDefault();
-          setIsOpen((prev) => !prev);
+          setHighlightedIndex(safeSelectedIndex);
           break;
         default:
           break;
       }
     },
-    [options.length]
+    [safeSelectedIndex]
   );
+
+  const handleTriggerClick = useCallback(() => {
+    setIsOpen((prev) => !prev);
+    if (!isOpen) {
+      setHighlightedIndex(safeSelectedIndex);
+    }
+  }, [isOpen, safeSelectedIndex]);
 
   const onOptionKeyDown = useCallback(
     (e: KeyboardEvent<HTMLUListElement>) => {
@@ -96,15 +98,6 @@ export const DropdownList: FC<Props> = ({ titleLabel, id, options, value, setVal
     },
     [highlightedIndex, selectOption, options.length]
   );
-
-  // 開いたら最初のハイライトを設定
-  useEffect(() => {
-    if (isOpen) {
-      setHighlightedIndex(selectedIndex);
-    } else {
-      setHighlightedIndex(-1);
-    }
-  }, [isOpen, selectedIndex]);
 
   // optionにフォーカスを移す
   useEffect(() => {
@@ -143,7 +136,7 @@ export const DropdownList: FC<Props> = ({ titleLabel, id, options, value, setVal
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-labelledby={`select-label-${id}`}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={handleTriggerClick}
         onKeyDown={onButtonKeyDown}
         ref={buttonRef}
         id="select-button"
