@@ -193,7 +193,9 @@ describe('useTodoCreate', () => {
 
     // Promiseを解決して完了させる
     act(() => {
-      resolvePromise!({ response: { ok: true }, data: {} });
+      if (resolvePromise) {
+        resolvePromise({ response: { ok: true }, data: {} });
+      }
     });
 
     // isSubmittingがfalseに戻るのを待つ

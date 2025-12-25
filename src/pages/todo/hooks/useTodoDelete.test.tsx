@@ -91,7 +91,9 @@ describe('useTodoDelete', () => {
       expect(result.current.isSubmitting).toBe(true);
     });
     act(() => {
-      resolvePromise!({ response: { ok: true } });
+      if (resolvePromise) {
+        resolvePromise({ response: { ok: true } });
+      }
     });
     await waitFor(() => {
       expect(result.current.isSubmitting).toBe(false);

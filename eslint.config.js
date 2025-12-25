@@ -65,6 +65,7 @@ export default [
       'no-else-return': ['error'],
       eqeqeq: 'error',
       'no-fallthrough': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'error',
 
       /* ---------------------
        * import

@@ -293,7 +293,9 @@ describe('useTodoUpdate', () => {
     });
 
     act(() => {
-      resolvePromise!({ response: { ok: true } });
+      if (resolvePromise) {
+        resolvePromise({ response: { ok: true } });
+      }
     });
 
     await waitFor(() => {
