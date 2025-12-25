@@ -26,6 +26,8 @@ export default {
         'bg-error': '#ffe6e6',
         'bg-error-dark': '#875e61',
         'border-dark': '#495057',
+        divider: '#e5e8eb',
+        'divider-dark': '#495057',
       },
       backgroundImage: {
         // スケルトンに使うグラデーション
@@ -48,10 +50,20 @@ export default {
             display: 'none',
           },
         },
+        rotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        'rotate-reverse': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(-360deg)' },
+        },
       },
       animation: {
         'skeleton-loading': 'skeleton-loading 2s infinite',
         'snackbar-message': 'snackbar-message 7s forwards',
+        rotate: 'rotate 1.5s infinite',
+        'rotate-reverse': 'rotate-reverse 1.5s infinite',
       },
     },
   },
