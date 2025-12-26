@@ -1,5 +1,6 @@
+import { useCallback,useState } from 'react';
+
 import { apiClient } from '@/lib/apiClient';
-import { useState, useCallback } from 'react';
 
 export const useNotificationMarkAsRead = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);

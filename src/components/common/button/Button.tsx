@@ -1,6 +1,7 @@
-import { cn } from '@/utils';
 import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
+
+import { cn } from '@/utils';
 
 interface ButtonProps {
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;

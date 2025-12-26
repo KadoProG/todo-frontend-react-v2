@@ -1,4 +1,5 @@
 import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
+
 import { alertColorStyles, MessageObject, SnackbarContext } from '.';
 
 export const SnackbarProvider: FC<{ children: ReactNode }> = ({ children }) => {

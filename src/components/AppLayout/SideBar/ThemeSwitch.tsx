@@ -1,6 +1,7 @@
+import { FC, useContext } from 'react';
+
 import { DropdownList } from '@/components/Inputs/DropdownList';
 import { ThemeContext } from '@/contexts/Theme';
-import { FC, useContext } from 'react';
 
 const options: {
   value: 'light' | 'dark' | 'device';

@@ -1,8 +1,9 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { ThemeSwitch } from '@/components/AppLayout/SideBar/ThemeSwitch';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
 import { useTodoList } from '@/pages/todo/hooks/useTodoList';
-import React from 'react';
-import { Link } from 'react-router-dom';
 
 export const SideBar: React.FC = () => {
   const { isLoading, todos } = useTodoList();

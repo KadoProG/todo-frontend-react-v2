@@ -1,6 +1,7 @@
-import { useNotificationUnreadCount } from '@/pages/notifications/hooks/useNotificationUnreadCount';
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { useNotificationUnreadCount } from '@/pages/notifications/hooks/useNotificationUnreadCount';
 import { cn } from '@/utils';
 
 export const NotificationBadge: React.FC = () => {

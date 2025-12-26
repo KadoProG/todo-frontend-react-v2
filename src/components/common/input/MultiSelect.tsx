@@ -1,5 +1,6 @@
-import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 import React from 'react';
+import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
+
 import { cn } from '@/utils';
 
 type MultiSelectProps<T extends FieldValues> = UseControllerProps<T> & {

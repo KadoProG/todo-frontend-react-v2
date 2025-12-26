@@ -1,8 +1,10 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import { components } from '@/lib/apiClient/types/schema';
+
 import { apiClient } from '@/lib/apiClient';
-import { AuthContext } from '.';
+import { components } from '@/lib/apiClient/types/schema';
 import { store } from '@/lib/store';
+
+import { AuthContext } from '.';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [status, setStatus] = useState<'pending' | 'unAuthenticated' | 'authenticated' | 'error'>(

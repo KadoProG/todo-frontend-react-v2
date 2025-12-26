@@ -1,7 +1,8 @@
-import { Button } from '@/components/common/button/Button';
-import { DeleteButton } from '@/components/common/button/DeleteButton';
 import dayjs from 'dayjs';
 import React from 'react';
+
+import { Button } from '@/components/common/button/Button';
+import { DeleteButton } from '@/components/common/button/DeleteButton';
 import type { components } from '@/lib/apiClient/types/schema';
 
 type TaskDisplayProps = {

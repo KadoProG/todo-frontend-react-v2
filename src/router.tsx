@@ -1,15 +1,16 @@
-import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
-import { HomePage } from '@/pages/home/HomePage';
-import { LoginPage } from '@/pages/login/LoginPage';
-import { RegisterPage } from '@/pages/register/RegisterPage';
-import { TodoDetailPage } from '@/pages/todo/[id]';
-import { AuthenticatedOutlet } from '@/outlet/AuthenticatedOutlet';
-import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
 import React, { useContext } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { TodoPage } from '@/pages/todo';
-import { NotificationPage } from '@/pages/notifications';
+
+import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { AuthContext } from '@/contexts/auth';
+import { AuthenticatedOutlet } from '@/outlet/AuthenticatedOutlet';
+import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
+import { HomePage } from '@/pages/home/HomePage';
+import { LoginPage } from '@/pages/login/LoginPage';
+import { NotificationPage } from '@/pages/notifications';
+import { RegisterPage } from '@/pages/register/RegisterPage';
+import { TodoPage } from '@/pages/todo';
+import { TodoDetailPage } from '@/pages/todo/[id]';
 
 export const Router: React.FC = () => {
   const { status } = useContext(AuthContext);

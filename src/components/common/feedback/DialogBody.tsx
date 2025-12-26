@@ -1,5 +1,6 @@
-import styles from '@/components/common/feedback/Dialog.module.scss';
 import React from 'react';
+
+import styles from '@/components/common/feedback/Dialog.module.scss';
 
 interface DialogContentProps {
   children: React.ReactNode;

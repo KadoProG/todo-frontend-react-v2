@@ -1,7 +1,8 @@
-import { SideBar } from '@/components/AppLayout/SideBar';
-import { NotificationBadge } from '@/components/AppLayout/NotificationBadge';
-import { AuthContext } from '@/contexts/auth';
 import { useContext } from 'react';
+
+import { NotificationBadge } from '@/components/AppLayout/NotificationBadge';
+import { SideBar } from '@/components/AppLayout/SideBar';
+import { AuthContext } from '@/contexts/auth';
 
 type Props = {
   children: React.ReactNode;

@@ -1,5 +1,6 @@
-import { Button } from '@/components/common/button/Button';
 import React from 'react';
+
+import { Button } from '@/components/common/button/Button';
 
 export const HomePage: React.FC = () => (
   <div className="p-2">

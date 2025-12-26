@@ -1,12 +1,13 @@
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from '@/components/common/button/Button';
 import { TextField } from '@/components/common/input/TextField';
 import { SnackbarContext } from '@/components/Feedback/Snackbar';
 import { AuthContext } from '@/contexts/auth';
 import { apiClient } from '@/lib/apiClient';
 import { store } from '@/lib/store';
-import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage: React.FC = () => {
   const { mutate } = useContext(AuthContext);

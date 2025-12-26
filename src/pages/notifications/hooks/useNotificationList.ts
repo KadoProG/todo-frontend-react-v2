@@ -1,7 +1,8 @@
-import { apiClient } from '@/lib/apiClient';
-import { components } from '@/lib/apiClient/types/schema';
 import React from 'react';
 import useSWR from 'swr';
+
+import { apiClient } from '@/lib/apiClient';
+import { components } from '@/lib/apiClient/types/schema';
 
 type NotificationResource = components['schemas']['NotificationResource'];
 

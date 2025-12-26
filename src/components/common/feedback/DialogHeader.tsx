@@ -1,7 +1,8 @@
 import React from 'react';
-import styles from '@/components/common/feedback/Dialog.module.scss';
-import { DeleteButton } from '@/components/common/button/DeleteButton';
+
 import { CloseButton } from '@/components/common/button/CloseButton';
+import { DeleteButton } from '@/components/common/button/DeleteButton';
+import styles from '@/components/common/feedback/Dialog.module.scss';
 
 interface DialogHeaderProps {
   title: string;
