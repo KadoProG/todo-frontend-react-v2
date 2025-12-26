@@ -7,6 +7,8 @@ import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import unusedImports from 'eslint-plugin-unused-imports';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import prettier from 'eslint-config-prettier';
 
 export default [
@@ -40,6 +42,8 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'unused-imports': unusedImports,
+      'simple-import-sort': simpleImportSort,
     },
 
     rules: {
@@ -75,6 +79,15 @@ export default [
        * ------------------- */
       'no-restricted-imports': ['warn', { patterns: ['./', '../'] }],
       'import/prefer-default-export': 'off',
+
+      // unused-imports を使用するため、デフォルトの no-unused-vars は off
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': ['warn'],
+      // インポートの順番設定
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
 
       /* ---------------------
        * その他
