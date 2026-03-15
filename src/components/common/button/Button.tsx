@@ -1,21 +1,21 @@
-import React, { type MouseEvent } from 'react';
+import type { CSSProperties, FC, MouseEvent, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { cn } from '@/utils';
 
 interface ButtonProps {
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
-  onMouseDown?: (e: React.MouseEvent) => void;
+  onMouseDown?: (e: MouseEvent) => void;
   disabled?: boolean;
   type?: HTMLButtonElement['type'];
-  children: React.ReactNode;
+  children: ReactNode;
   href?: string;
-  width?: React.CSSProperties['width'];
-  style?: React.CSSProperties;
+  width?: CSSProperties['width'];
+  style?: CSSProperties;
   className?: string;
 }
 
-export const Button: React.FC<ButtonProps> = (props) =>
+export const Button: FC<ButtonProps> = (props) =>
   props.href ? (
     <Link
       to={props.href}

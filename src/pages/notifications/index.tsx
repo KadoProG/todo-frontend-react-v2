@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import React, { useCallback } from 'react';
+import type { FC } from 'react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppLayout } from '@/components/AppLayout';
@@ -11,7 +12,7 @@ import { useNotificationMarkAsRead } from '@/pages/notifications/hooks/useNotifi
 import { useNotificationUnreadCount } from '@/pages/notifications/hooks/useNotificationUnreadCount';
 import { cn } from '@/utils';
 
-export const NotificationPage: React.FC = () => {
+export const NotificationPage: FC = () => {
   const { isLoading, notifications, unreadCount, mutate } = useNotificationList();
   const { mutate: mutateUnreadCount } = useNotificationUnreadCount();
   const { markAsRead, isSubmitting: isMarkAsReadSubmitting } = useNotificationMarkAsRead();

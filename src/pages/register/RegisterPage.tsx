@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import type { FC, FormEvent } from 'react';
+import { useCallback,useContext  } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ import { AuthContext } from '@/contexts/auth';
 import { apiClient } from '@/lib/apiClient';
 import { store } from '@/lib/store';
 
-export const RegisterPage: React.FC = () => {
+export const RegisterPage: FC = () => {
   const { mutate } = useContext(AuthContext);
   const { showSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ export const RegisterPage: React.FC = () => {
     },
   });
 
-  const submitForm = React.useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       handleSubmit(async (formData) => {
         try {

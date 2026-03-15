@@ -9,6 +9,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import unusedImports from 'eslint-plugin-unused-imports';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import importPlugin from 'eslint-plugin-import';
 import prettier from 'eslint-config-prettier';
 
 export default [
@@ -44,6 +45,7 @@ export default [
       'react-refresh': reactRefresh,
       'unused-imports': unusedImports,
       'simple-import-sort': simpleImportSort,
+      import: importPlugin,
     },
 
     rules: {
@@ -78,9 +80,14 @@ export default [
        * import
        * ------------------- */
       'no-restricted-imports': ['warn', { patterns: ['./', '../'] }],
-      'import/prefer-default-export': 'off',
-      '@typescript-eslint/consistent-type-imports': ['error'],
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          disallowTypeAnnotations: false,
+        },
+      ],
       '@typescript-eslint/no-import-type-side-effects': 'error',
+      'import/no-duplicates': 'error',
 
       // unused-imports を使用するため、デフォルトの no-unused-vars は off
       'no-unused-vars': 'off',

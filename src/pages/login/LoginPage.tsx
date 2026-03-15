@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import type { FC, FormEvent } from 'react';
+import { useCallback, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/common/button/Button';
@@ -8,7 +9,7 @@ import { AuthContext } from '@/contexts/auth';
 import { apiClient } from '@/lib/apiClient';
 import { store } from '@/lib/store';
 
-export const LoginPage: React.FC = () => {
+export const LoginPage: FC = () => {
   const { mutate } = useContext(AuthContext);
   const { showSnackbar } = useContext(SnackbarContext);
   const { control, handleSubmit } = useForm<{
@@ -21,8 +22,8 @@ export const LoginPage: React.FC = () => {
     },
   });
 
-  const submitForm = React.useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       handleSubmit(async (formData) => {
         try {
