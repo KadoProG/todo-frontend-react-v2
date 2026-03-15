@@ -1,7 +1,7 @@
 import createClient from 'openapi-fetch';
 
 import { originFetch } from '@/lib/apiClient/originFetch';
-import { paths } from '@/lib/apiClient/types/schema';
+import { type paths } from '@/lib/apiClient/types/schema';
 
 export const apiClient = createClient<
   paths & {

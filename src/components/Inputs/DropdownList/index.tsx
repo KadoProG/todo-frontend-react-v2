@@ -1,4 +1,4 @@
-import { FC, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type FC, type KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type Props = {
   titleLabel?: string;

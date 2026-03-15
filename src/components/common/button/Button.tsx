@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { type MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { cn } from '@/utils';

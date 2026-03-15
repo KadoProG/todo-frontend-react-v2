@@ -1,6 +1,6 @@
-import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
+import { type FC, type ReactNode, useCallback, useMemo, useState } from 'react';
 
-import { alertColorStyles, MessageObject, SnackbarContext } from '.';
+import { alertColorStyles, type MessageObject, SnackbarContext } from '.';
 
 export const SnackbarProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [messageObjects, setMessageObjects] = useState<(MessageObject & { disabled: boolean })[]>(
