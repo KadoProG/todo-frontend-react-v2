@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/common/button/Button';
@@ -23,7 +23,7 @@ type TaskEditFormProps = {
   isSubmitting?: boolean;
 };
 
-export const TaskEditForm: React.FC<TaskEditFormProps> = ({
+export const TaskEditForm: FC<TaskEditFormProps> = ({
   task,
   onSubmit,
   onCancel,
@@ -45,7 +45,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({
   });
 
   // タスクデータが変更されたらフォームの値を更新
-  React.useEffect(() => {
+  useEffect(() => {
     reset({
       title: task.title || '',
       description: task.description || '',
@@ -54,7 +54,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({
     });
   }, [task, reset]);
 
-  const handleFormSubmit = React.useCallback(
+  const handleFormSubmit = useCallback(
     async (formData: {
       title: string;
       description: string;
@@ -69,7 +69,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({
     [onSubmit]
   );
 
-  const handleFormCancel = React.useCallback(() => {
+  const handleFormCancel = useCallback(() => {
     reset({
       title: task.title || '',
       description: task.description || '',
@@ -79,7 +79,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({
     onCancel();
   }, [task, reset, onCancel]);
 
-  const userOptions = React.useMemo(() => {
+  const userOptions = useMemo(() => {
     if (!users) return [];
     return users.map((user) => ({
       label: user.name,

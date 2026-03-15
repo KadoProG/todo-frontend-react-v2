@@ -1,4 +1,10 @@
-import React from 'react';
+import {
+  type CSSProperties,
+  type FocusEvent,
+  type HTMLInputTypeAttribute,
+  useEffect,
+  useRef,
+} from 'react';
 import { type FieldValues, useController, type UseControllerProps } from 'react-hook-form';
 
 export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
@@ -10,19 +16,19 @@ export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   /** 必須項目にするか */
   required?: boolean;
   /** デザインの追記 */
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   /** inputのtype */
-  type?: React.HTMLInputTypeAttribute;
+  type?: HTMLInputTypeAttribute;
   /** ロード時フォームフォーカス */
   autoFocus?: boolean;
   /** フィールドフォーカス解除時の動作 */
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   /** フィールドが有効か否か */
   isActiveFocus?: boolean;
 };
 
 export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
-  const ref = React.useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLInputElement>(null);
   const { field, fieldState } = useController<T>({
     name: props.name,
     control: props.control,
@@ -32,7 +38,7 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.isActiveFocus) {
       ref.current?.focus();
     }

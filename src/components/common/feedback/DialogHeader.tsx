@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 
 import { CloseButton } from '@/components/common/button/CloseButton';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
@@ -10,7 +10,7 @@ interface DialogHeaderProps {
   onClose?: () => void;
 }
 
-export const DialogHeader: React.FC<DialogHeaderProps> = (props) => (
+export const DialogHeader: FC<DialogHeaderProps> = (props) => (
   <div className={styles.dialog__header}>
     <h2>{props.title}</h2>
     {props.onDelete && <DeleteButton type="button" onClick={props.onDelete} />}

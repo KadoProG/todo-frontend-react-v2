@@ -1,4 +1,4 @@
-import React from 'react';
+import { type CSSProperties, useCallback, useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps } from 'react-hook-form';
 
 import { cn } from '@/utils';
@@ -6,7 +6,7 @@ import { cn } from '@/utils';
 type MultiSelectProps<T extends FieldValues> = UseControllerProps<T> & {
   label?: string;
   options: { label: string; value: string | number }[];
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   required?: boolean;
   disabled?: boolean;
 };
@@ -17,14 +17,14 @@ export const MultiSelect = <T extends FieldValues>(props: MultiSelectProps<T>) =
     control: props.control,
   });
 
-  const selectedValues = React.useMemo(() => {
+  const selectedValues = useMemo(() => {
     const value = field.value;
     if (!value) return [];
     if (Array.isArray(value)) return value.map(String);
     return [String(value)];
   }, [field.value]);
 
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     (optionValue: string | number, checked: boolean) => {
       const stringValue = String(optionValue);
       const currentValues: string[] = selectedValues;

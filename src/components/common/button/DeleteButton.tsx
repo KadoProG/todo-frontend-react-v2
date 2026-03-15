@@ -1,13 +1,13 @@
-import React from 'react';
+import { type CSSProperties, type FC } from 'react';
 
 interface DeleteButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   type?: HTMLButtonElement['type'];
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
-export const DeleteButton: React.FC<DeleteButtonProps> = (props) => (
+export const DeleteButton: FC<DeleteButtonProps> = (props) => (
   <button
     onClick={props.onClick}
     disabled={props.disabled}

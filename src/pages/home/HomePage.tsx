@@ -1,8 +1,8 @@
-import React from 'react';
+import { type FC } from 'react';
 
 import { Button } from '@/components/common/button/Button';
 
-export const HomePage: React.FC = () => (
+export const HomePage: FC = () => (
   <div className="p-2">
     <h1>Home Page</h1>
     <p>ホームページです</p>

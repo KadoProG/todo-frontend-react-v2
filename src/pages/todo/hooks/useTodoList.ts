@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 
 import { apiClient } from '@/lib/apiClient';
@@ -14,7 +14,7 @@ export const useTodoList = () => {
     }
   );
 
-  const todos = React.useMemo(() => data?.data?.tasks ?? [], [data]);
+  const todos = useMemo(() => data?.data?.tasks ?? [], [data]);
 
   return {
     isLoading,

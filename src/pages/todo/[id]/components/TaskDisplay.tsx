@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import { type FC } from 'react';
 
 import { Button } from '@/components/common/button/Button';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
@@ -15,7 +15,7 @@ type TaskDisplayProps = {
   isSubmitting?: boolean;
 };
 
-export const TaskDisplay: React.FC<TaskDisplayProps> = ({
+export const TaskDisplay: FC<TaskDisplayProps> = ({
   task,
   onEdit,
   onDelete,

@@ -1,13 +1,13 @@
-import React from 'react';
+import { type CSSProperties, type FC, type ReactNode } from 'react';
 
 import styles from '@/components/common/feedback/Dialog.module.scss';
 
 interface DialogActionsProps {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
+  children: ReactNode;
+  style?: CSSProperties;
 }
 
-export const DialogActions: React.FC<DialogActionsProps> = (props) => (
+export const DialogActions: FC<DialogActionsProps> = (props) => (
   <div className={styles.dialog__actions} style={props.style}>
     {props.children}
   </div>

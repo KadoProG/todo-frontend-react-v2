@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 
 import ReactIcon from '@/assets/react.svg?react';
 import ViteIcon from '@/assets/vite.svg?react';
@@ -10,7 +10,7 @@ interface LoadingWithMessageProps {
 /**
  * メッセージ付きローディング
  */
-export const LoadingWithMessage: React.FC<LoadingWithMessageProps> = (props) => (
+export const LoadingWithMessage: FC<LoadingWithMessageProps> = (props) => (
   <div className="fixed top-0 left-0 z-[1000] h-full w-full bg-black/20">
     <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 bg-divider p-2 dark:bg-divider-dark">
       <div className="relative h-[60px] w-[60px] animate-rotate">

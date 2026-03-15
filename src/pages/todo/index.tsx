@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { type MouseEvent, useCallback } from 'react';
+import { type FC, type MouseEvent, useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppLayout } from '@/components/AppLayout';
@@ -15,14 +15,14 @@ import { useTodoDelete } from '@/pages/todo/hooks/useTodoDelete';
 import { useTodoList } from '@/pages/todo/hooks/useTodoList';
 import { useTodoUpdate } from '@/pages/todo/hooks/useTodoUpdate';
 
-export const TodoPage: React.FC = () => {
+export const TodoPage: FC = () => {
   const { isLoading, todos, mutate } = useTodoList();
   const { updateTodo, isSubmitting: isUpdateSubmitting } = useTodoUpdate({ mutate });
   const { deleteTodo, isSubmitting: isDeleteSubmitting } = useTodoDelete({ mutate });
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
-  const [deleteTargetId, setDeleteTargetId] = React.useState<number | null>(null);
-  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
 
   const openAddDialog = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     triggerRef.current = e.currentTarget;

@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
-import React from 'react';
+import { type ReactNode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SnackbarContext } from '@/components/Feedback/Snackbar';
@@ -21,7 +21,7 @@ const mockSnackbarContextValue = {
 };
 
 // テスト用のラッパー
-const TestWrapper = ({ children }: { children: React.ReactNode }) => (
+const TestWrapper = ({ children }: { children: ReactNode }) => (
   <SnackbarContext.Provider value={mockSnackbarContextValue}>{children}</SnackbarContext.Provider>
 );
 

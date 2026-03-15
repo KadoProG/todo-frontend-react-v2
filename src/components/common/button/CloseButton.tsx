@@ -1,13 +1,13 @@
-import React from 'react';
+import { type CSSProperties, type FC } from 'react';
 
 interface CloseButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   type?: HTMLButtonElement['type'];
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
-export const CloseButton: React.FC<CloseButtonProps> = (props) => (
+export const CloseButton: FC<CloseButtonProps> = (props) => (
   <button
     onClick={props.onClick}
     disabled={props.disabled}

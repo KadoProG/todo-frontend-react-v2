@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC, useCallback, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
@@ -18,10 +18,10 @@ import { useTaskActions } from '@/pages/todo/[id]/hooks/useTaskActions';
 import { useTodoDelete } from '@/pages/todo/hooks/useTodoDelete';
 import { useTodoUpdate } from '@/pages/todo/hooks/useTodoUpdate';
 
-export const TodoDetailPage: React.FC = () => {
-  const [isNotFound, setIsNotFound] = React.useState<boolean>(false);
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState<boolean>(false);
+export const TodoDetailPage: FC = () => {
+  const [isNotFound, setIsNotFound] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const { actions, isLoading: isActionsLoading, mutate } = useTaskActions(id);
@@ -67,7 +67,7 @@ export const TodoDetailPage: React.FC = () => {
     mutate: mutateTask,
   });
 
-  const handleSubmit = React.useCallback(
+  const handleSubmit = useCallback(
     async (formData: {
       title: string;
       description: string;
@@ -90,15 +90,15 @@ export const TodoDetailPage: React.FC = () => {
     [id, task, updateTodo]
   );
 
-  const handleCancel = React.useCallback(() => {
+  const handleCancel = useCallback(() => {
     setIsEditing(false);
   }, []);
 
-  const handleDeleteClick = React.useCallback(() => {
+  const handleDeleteClick = useCallback(() => {
     setIsDeleteDialogOpen(true);
   }, []);
 
-  const handleDeleteConfirm = React.useCallback(async () => {
+  const handleDeleteConfirm = useCallback(async () => {
     if (!id) return;
     const success = await deleteTodo(Number(id));
     if (success) {
@@ -107,7 +107,7 @@ export const TodoDetailPage: React.FC = () => {
     }
   }, [id, deleteTodo, navigate]);
 
-  const handleDeleteCancel = React.useCallback(() => {
+  const handleDeleteCancel = useCallback(() => {
     setIsDeleteDialogOpen(false);
   }, []);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 
 import { apiClient } from '@/lib/apiClient';
@@ -17,12 +17,12 @@ export const useNotificationList = (page: number = 0, size: number = 20) => {
     }
   );
 
-  const notifications = React.useMemo<NotificationResource[]>(
+  const notifications = useMemo<NotificationResource[]>(
     () => data?.data?.notifications ?? [],
     [data]
   );
-  const unreadCount = React.useMemo(() => data?.data?.unread_count ?? 0, [data]);
-  const pagination = React.useMemo(
+  const unreadCount = useMemo(() => data?.data?.unread_count ?? 0, [data]);
+  const pagination = useMemo(
     () => ({
       page: data?.data?.page ?? 0,
       size: data?.data?.size ?? 20,
