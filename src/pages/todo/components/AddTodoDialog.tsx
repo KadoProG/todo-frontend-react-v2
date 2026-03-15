@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { type FC, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { MultiSelect } from '@/components/common/input/MultiSelect';

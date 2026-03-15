@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { type FC, type ReactNode, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 
 import { ThemeContext } from '@/contexts/Theme';
 import { store } from '@/lib/store';

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { MouseEvent, useCallback } from 'react';
+import React, { type MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppLayout } from '@/components/AppLayout';

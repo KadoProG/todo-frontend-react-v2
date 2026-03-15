@@ -1,4 +1,4 @@
-import { createContext, HTMLAttributes } from 'react';
+import { createContext, type HTMLAttributes } from 'react';
 
 type AlertColor = 'success' | 'error' | 'info' | 'warning';
 

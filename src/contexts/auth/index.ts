@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { components } from '@/lib/apiClient/types/schema';
+import { type components } from '@/lib/apiClient/types/schema';
 
 export type AuthContextType = {
   status: 'pending' | 'unAuthenticated' | 'authenticated' | 'error';

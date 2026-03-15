@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useRef } from 'react';
+import { type FC, type ReactNode, useEffect, useRef } from 'react';
 type Props = {
   isOpen: boolean;
   onClose: () => void;

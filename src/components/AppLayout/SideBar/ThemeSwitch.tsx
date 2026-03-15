@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { type FC, useContext } from 'react';
 
 import { DropdownList } from '@/components/Inputs/DropdownList';
 import { ThemeContext } from '@/contexts/Theme';

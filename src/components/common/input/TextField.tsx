@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldValues, useController,UseControllerProps } from 'react-hook-form';
+import { type FieldValues, useController, type UseControllerProps } from 'react-hook-form';
 
 export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   label?: string;
