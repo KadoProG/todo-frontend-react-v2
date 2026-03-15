@@ -79,12 +79,8 @@ export default [
        * ------------------- */
       'no-restricted-imports': ['warn', { patterns: ['./', '../'] }],
       'import/prefer-default-export': 'off',
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        {
-          disallowTypeAnnotations: false,
-        },
-      ],
+      '@typescript-eslint/consistent-type-imports': ['error'],
+      '@typescript-eslint/no-import-type-side-effects': 'error',
 
       // unused-imports を使用するため、デフォルトの no-unused-vars は off
       'no-unused-vars': 'off',

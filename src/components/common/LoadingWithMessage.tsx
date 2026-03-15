@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import ReactIcon from '@/assets/react.svg?react';
 import ViteIcon from '@/assets/vite.svg?react';

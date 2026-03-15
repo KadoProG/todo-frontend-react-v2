@@ -1,7 +1,7 @@
 import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { apiClient } from '@/lib/apiClient';
-import { type components } from '@/lib/apiClient/types/schema';
+import type { components } from '@/lib/apiClient/types/schema';
 import { store } from '@/lib/store';
 
 import { AuthContext } from '.';

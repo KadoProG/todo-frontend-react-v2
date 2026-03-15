@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { Button } from '@/components/common/button/Button';
 import { DeleteButton } from '@/components/common/button/DeleteButton';

@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import styles from '@/components/common/layout/FormContainer.module.scss';
 

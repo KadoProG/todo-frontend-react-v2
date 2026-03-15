@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { CloseButton } from '@/components/common/button/CloseButton';
 import { DeleteButton } from '@/components/common/button/DeleteButton';
