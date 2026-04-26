@@ -11,6 +11,9 @@ export const SideBar: FC = () => {
   return (
     <div className="w-[140px] rounded border border-border p-2 dark:border-border-dark">
       <ThemeSwitch />
+      <div className="mb-2">
+        <Link to="/profile">プロフィール</Link>
+      </div>
       <p>ToDo</p>
       <div className="flex flex-col gap-2">
         {isLoading && (
