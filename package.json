@@ -14,6 +14,9 @@
     "test:coverage": "vitest run --project unit --coverage",
     "test:ui": "vitest --ui",
     "test:ui:coverage": "vitest --ui --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report",
     "prepare": "husky",
     "schema": "npm run get:api && npm run schema:generate:json",
     "schema:kotlin": "npm run get:api:kotlin && npm run schema:generate:yml",
@@ -40,6 +43,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
     "@eslint/js": "^9.39.2",
+    "@playwright/test": "^1.59.1",
     "@stoplight/prism-cli": "^5.14.2",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",

@@ -35,6 +35,9 @@ dist-ssr
 
 # testing
 /coverage
+/playwright-report/
+/test-results/
+/blob-report/
 
 *storybook.log
 storybook-static
