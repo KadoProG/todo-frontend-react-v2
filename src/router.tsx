@@ -9,6 +9,7 @@ import { UnauthenticatedOutlet } from '@/outlet/UnauthenticatedOutlet';
 import { HomePage } from '@/pages/home/HomePage';
 import { LoginPage } from '@/pages/login/LoginPage';
 import { NotificationPage } from '@/pages/notifications';
+import { ProfilePage } from '@/pages/profile';
 import { RegisterPage } from '@/pages/register/RegisterPage';
 import { TodoPage } from '@/pages/todo';
 import { TodoDetailPage } from '@/pages/todo/[id]';
@@ -30,6 +31,7 @@ export const Router: FC = () => {
           {/* ログイン済みのルーティング */}
           <Route path="/todo/:id" element={<TodoDetailPage />} />
           <Route path="/todo" element={<TodoPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/notifications" element={<NotificationPage />} />
         </Route>
 
