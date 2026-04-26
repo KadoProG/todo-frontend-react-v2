@@ -4,6 +4,7 @@
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
+updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -21,3 +22,8 @@ version: 2
         update-types:
           - "minor"
           - "patch"
+  # dependabot.ymlにGitHub Actionsの自動更新も追加
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
