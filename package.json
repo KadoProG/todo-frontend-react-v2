@@ -29,14 +29,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "axios": "^1.16.0",
+    "axios": "^1.16.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.20",
     "openapi-fetch": "^0.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-hook-form": "^7.75.0",
-    "react-router-dom": "^7.15.0",
+    "react-hook-form": "^7.76.0",
+    "react-router-dom": "^7.15.1",
     "swr": "^2.4.1",
     "tailwind-merge": "^3.6.0"
   },
