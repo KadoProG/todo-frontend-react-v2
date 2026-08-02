@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { type FC, type MouseEvent, useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { AppLayout } from '@/components/AppLayout';
 import { Button } from '@/components/common/button/Button';

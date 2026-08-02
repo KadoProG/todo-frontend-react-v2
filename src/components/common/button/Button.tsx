@@ -1,5 +1,5 @@
 import type { CSSProperties, FC, MouseEvent, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { cn } from '@/utils';
 

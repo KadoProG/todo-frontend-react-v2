@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useContext } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { AuthContext } from '@/contexts/auth';

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { useNotificationUnreadCount } from '@/pages/notifications/hooks/useNotificationUnreadCount';
 import { cn } from '@/utils';
