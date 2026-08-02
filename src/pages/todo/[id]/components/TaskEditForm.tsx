@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/common/button/Button';
 import { MultiSelect } from '@/components/common/input/MultiSelect';
 import { TextField } from '@/components/common/input/TextField';
+import { TASK_MAX_LENGTH } from '@/const/const';
 import type { components } from '@/lib/apiClient/types/schema';
 import { useUsers } from '@/pages/todo/hooks/useUsers';
 import { formatDateTimeLocal } from '@/utils';
@@ -89,8 +90,21 @@ export const TaskEditForm: FC<TaskEditFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col">
-      <TextField control={control} name="title" label="タイトル" required disabled={isSubmitting} />
-      <TextField control={control} name="description" label="説明" disabled={isSubmitting} />
+      <TextField
+        control={control}
+        name="title"
+        label="タイトル"
+        required
+        maxLength={TASK_MAX_LENGTH.title}
+        disabled={isSubmitting}
+      />
+      <TextField
+        control={control}
+        name="description"
+        label="説明"
+        maxLength={TASK_MAX_LENGTH.description}
+        disabled={isSubmitting}
+      />
       <TextField
         control={control}
         name="expired_at"
