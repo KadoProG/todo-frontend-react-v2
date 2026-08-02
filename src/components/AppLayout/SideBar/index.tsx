@@ -14,6 +14,9 @@ export const SideBar: FC = () => {
       <div className="mb-2">
         <Link to="/profile">プロフィール</Link>
       </div>
+      <div className="mb-2">
+        <Link to="/todo">一覧</Link>
+      </div>
       <p>ToDo</p>
       <div className="flex flex-col gap-2">
         {isLoading && (
