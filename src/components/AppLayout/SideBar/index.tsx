@@ -26,9 +26,15 @@ export const SideBar: FC = () => {
           </>
         )}
         {todos.map((todo) => (
-          <div key={todo.id}>
+          <div key={todo.id} className="min-w-0">
             <div className="flex gap-1">
-              <Link to={`/todo/${todo.id}`}>{todo.title}</Link>
+              <Link
+                to={`/todo/${todo.id}`}
+                title={todo.title}
+                className="block min-w-0 flex-1 truncate"
+              >
+                {todo.title}
+              </Link>
             </div>
           </div>
         ))}
