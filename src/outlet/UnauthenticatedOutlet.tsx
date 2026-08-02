@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useContext } from 'react';
-import { Navigate, Outlet, type RouteProps } from 'react-router-dom';
+import { Navigate, Outlet, type RouteProps } from 'react-router';
 
 import { AuthContext } from '@/contexts/auth';
 

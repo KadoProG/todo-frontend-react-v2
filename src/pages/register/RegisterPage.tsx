@@ -1,7 +1,7 @@
 import type { FC, FormEvent } from 'react';
 import { useCallback, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { Button } from '@/components/common/button/Button';
 import { TextField } from '@/components/common/input/TextField';

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { ThemeSwitch } from '@/components/AppLayout/SideBar/ThemeSwitch';
 import { Skeleton } from '@/components/common/feedback/Skeleton';
