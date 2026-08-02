@@ -25,6 +25,8 @@ export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   /** フィールドが有効か否か */
   isActiveFocus?: boolean;
+  /** 入力可能な最大文字数 */
+  maxLength?: number;
 };
 
 export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
@@ -35,6 +37,12 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
     rules: {
       ...props.rules,
       required: props.required ? '入力必須の項目です' : undefined,
+      maxLength: props.maxLength
+        ? {
+            value: props.maxLength,
+            message: `${props.maxLength}文字以内で入力してください`,
+          }
+        : undefined,
     },
   });
 
@@ -64,6 +72,7 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
         disabled={props.disabled}
         type={props.type}
         autoFocus={props.autoFocus}
+        maxLength={props.maxLength}
         className={`w-full rounded border p-2 text-xl dark:text-text-dark ${fieldState.error ? 'border-[red]' : 'border-border dark:border-border-dark'}`}
         onBlur={props.onBlur}
       />

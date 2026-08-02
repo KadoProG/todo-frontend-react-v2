@@ -5,6 +5,7 @@ import { MultiSelect } from '@/components/common/input/MultiSelect';
 import { Select } from '@/components/common/input/Select';
 import { TextField } from '@/components/common/input/TextField';
 import { DialogBase } from '@/components/Feedback/DialogBase';
+import { TASK_MAX_LENGTH } from '@/const/const';
 import { useTodoCreate } from '@/pages/todo/hooks/useTodoCreate';
 import { useUsers } from '@/pages/todo/hooks/useUsers';
 
@@ -74,12 +75,14 @@ export const AddTodoDialog: FC<Props> = ({ isOpen, onClose }) => {
           name="title"
           label="タスク名"
           required
+          maxLength={TASK_MAX_LENGTH.title}
           disabled={isSubmitting}
         />
         <TextField
           control={control}
           name="description"
           label="タスクの説明"
+          maxLength={TASK_MAX_LENGTH.description}
           disabled={isSubmitting}
         />
         <Select
