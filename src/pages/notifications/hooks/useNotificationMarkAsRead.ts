@@ -8,8 +8,8 @@ export const useNotificationMarkAsRead = () => {
   const markAsRead = useCallback(async (notificationId: number) => {
     setIsSubmitting(true);
     try {
-      await apiClient.PUT('/v1/notifications/{notificationId}/read', {
-        params: { path: { notificationId } },
+      await apiClient.PUT('/v1/notifications/{notification}/read', {
+        params: { path: { notification: notificationId } },
       });
     } finally {
       setIsSubmitting(false);

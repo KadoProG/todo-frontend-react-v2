@@ -202,9 +202,200 @@
         }
       }
     },
+    "\/v1\/notifications": {
+      "get": {
+        "operationId": "notification.index",
+        "summary": "\u901a\u77e5\u4e00\u89a7\u53d6\u5f97",
+        "tags": ["Notification"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#\/components\/schemas\/NotificationResource"
+                      }
+                    },
+                    "unread_count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "total_elements": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "notifications",
+                    "unread_count",
+                    "page",
+                    "size",
+                    "total_pages",
+                    "total_elements"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#\/components\/responses\/ValidationException"
+          }
+        }
+      }
+    },
+    "\/v1\/notifications\/unread-count": {
+      "get": {
+        "operationId": "notification.unreadCount",
+        "summary": "\u672a\u8aad\u901a\u77e5\u6570\u53d6\u5f97",
+        "tags": ["Notification"],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "unread_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["unread_count"]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          }
+        }
+      }
+    },
+    "\/v1\/notifications\/read-all": {
+      "put": {
+        "operationId": "notification.markAllAsRead",
+        "summary": "\u3059\u3079\u3066\u306e\u901a\u77e5\u3092\u65e2\u8aad\u306b\u3059\u308b",
+        "tags": ["Notification"],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "All notifications marked as read"
+                    }
+                  },
+                  "required": ["message"]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          }
+        }
+      }
+    },
+    "\/v1\/notifications\/{notification}\/read": {
+      "put": {
+        "operationId": "notification.markAsRead",
+        "summary": "\u901a\u77e5\u3092\u65e2\u8aad\u306b\u3059\u308b",
+        "tags": ["Notification"],
+        "parameters": [
+          {
+            "name": "notification",
+            "in": "path",
+            "required": true,
+            "description": "The notification ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notification": {
+                      "$ref": "#\/components\/schemas\/NotificationResource"
+                    }
+                  },
+                  "required": ["notification"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application\/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error overview."
+                    }
+                  },
+                  "required": ["message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#\/components\/responses\/ModelNotFoundException"
+          },
+          "401": {
+            "$ref": "#\/components\/responses\/AuthenticationException"
+          }
+        }
+      }
+    },
     "\/v1\/tasks": {
       "get": {
-        "operationId": "task.index",
+        "operationId": "tasks.index",
         "summary": "\u30bf\u30b9\u30af\u4e00\u89a7\u53d6\u5f97",
         "tags": ["Task"],
         "parameters": [
@@ -489,7 +680,7 @@
     },
     "\/v1\/tasks\/{task}\/actions": {
       "get": {
-        "operationId": "actions.index",
+        "operationId": "tasks.actions.index",
         "summary": "\u30bf\u30b9\u30af\u306b\u5bfe\u5fdc\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3\u4e00\u89a7",
         "tags": ["TaskAction"],
         "parameters": [
@@ -532,7 +723,7 @@
         }
       },
       "post": {
-        "operationId": "actions.store",
+        "operationId": "tasks.actions.store",
         "summary": "\u30bf\u30b9\u30af\u306b\u5bfe\u5fdc\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3\u4f5c\u6210",
         "tags": ["TaskAction"],
         "parameters": [
@@ -584,7 +775,7 @@
     },
     "\/v1\/tasks\/{task}\/actions\/{action}": {
       "put": {
-        "operationId": "actions.update",
+        "operationId": "tasks.actions.update",
         "summary": "\u30bf\u30b9\u30af\u306b\u5bfe\u5fdc\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3\u66f4\u65b0",
         "tags": ["TaskAction"],
         "parameters": [
@@ -642,7 +833,7 @@
         }
       },
       "delete": {
-        "operationId": "actions.destroy",
+        "operationId": "tasks.actions.destroy",
         "summary": "\u30bf\u30b9\u30af\u306b\u5bfe\u5fdc\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3\u524a\u9664",
         "tags": ["TaskAction"],
         "parameters": [
@@ -756,26 +947,7 @@
           "content": {
             "application\/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "maxLength": 255
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "maxLength": 255
-                  },
-                  "password": {
-                    "type": "string",
-                    "minLength": 8
-                  },
-                  "password_confirmation": {
-                    "type": "string",
-                    "minLength": 8
-                  }
-                }
+                "$ref": "#\/components\/schemas\/UpdateUserRequest"
               }
             }
           }
@@ -797,14 +969,17 @@
               }
             }
           },
-          "422": {
-            "$ref": "#\/components\/responses\/ValidationException"
-          },
           "404": {
             "$ref": "#\/components\/responses\/ModelNotFoundException"
           },
           "401": {
             "$ref": "#\/components\/responses\/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#\/components\/responses\/ValidationException"
+          },
+          "403": {
+            "$ref": "#\/components\/responses\/AuthorizationException"
           }
         }
       },
@@ -837,7 +1012,7 @@
     },
     "\/v1\/users\/me\/tasks": {
       "get": {
-        "operationId": "userMeTask.index",
+        "operationId": "users.me.tasks.index",
         "summary": "\u81ea\u8eab\u306e\u30bf\u30b9\u30af\u4e00\u89a7\u53d6\u5f97",
         "tags": ["UserMeTask"],
         "parameters": [
@@ -981,6 +1156,48 @@
         "required": ["email", "password"],
         "title": "LoginRequest"
       },
+      "NotificationResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": ["string", "null"]
+          },
+          "type": {
+            "type": "string"
+          },
+          "related_task_id": {
+            "type": ["integer", "null"]
+          },
+          "is_read": {
+            "type": "boolean"
+          },
+          "read_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "message",
+          "type",
+          "related_task_id",
+          "is_read",
+          "read_at",
+          "created_at"
+        ],
+        "title": "NotificationResource"
+      },
       "RegisterResource": {
         "type": "object",
         "properties": {
@@ -1044,13 +1261,14 @@
         "properties": {
           "title": {
             "type": "string",
-            "maxLength": 255
+            "maxLength": 50
           },
           "is_public": {
             "type": "boolean"
           },
           "description": {
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "maxLength": 300
           },
           "expired_at": {
             "type": ["string", "null"],
@@ -1172,7 +1390,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "maxLength": 255
+            "maxLength": 50
           },
           "is_public": {
             "type": "boolean"
@@ -1182,7 +1400,8 @@
             "format": "date-time"
           },
           "description": {
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "maxLength": 300
           },
           "is_done": {
             "type": "boolean"
@@ -1195,6 +1414,29 @@
           }
         },
         "title": "UpdateTaskRequest"
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 255
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          },
+          "password_confirmation": {
+            "type": "string",
+            "minLength": 8
+          }
+        },
+        "title": "UpdateUserRequest"
       },
       "UserResource": {
         "type": "object",
