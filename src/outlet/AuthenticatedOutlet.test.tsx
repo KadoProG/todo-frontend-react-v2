@@ -21,6 +21,7 @@ const createAuthContextValue = (
           name: 'テストユーザー',
           email: 'test@example.com',
           email_verified_at: '2024-01-01T00:00:00Z',
+          icon_url: null,
           created_at: '2024-01-01T00:00:00Z',
           updated_at: '2024-01-01T00:00:00Z',
         }
@@ -70,6 +71,7 @@ describe('AuthenticatedOutlet', () => {
         name: 'テストユーザー',
         email: 'test@example.com',
         email_verified_at: '2024-01-01T00:00:00Z',
+        icon_url: null,
         created_at: '2024-01-01T00:00:00Z',
         updated_at: '2024-01-01T00:00:00Z',
       });
