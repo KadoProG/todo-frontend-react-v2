@@ -1,0 +1,14 @@
+aws_region        = "ap-northeast-1"
+project           = "todo-frontend-v2"
+environment       = "prod"
+github_repository = "KadoProG/todo-frontend-react-v2"
+
+# バックエンドの ALB のホスト名。スキーマ(http://)もパスも付けないこと。
+#   cd ../../laravel-todo-app-v2/terraform
+#   terraform output -raw alb_dns_name | sed 's|^https\?://||'
+# 空にすると /api/* の転送を作らないため、バックエンド構築前でも apply できる。
+api_origin_domain = ""
+
+# GitHub OIDC プロバイダは laravel-todo-app-v2 側で作成するため false のままにする。
+# こちらを先に apply する場合のみ true にし、Laravel 側を false にすること。
+create_github_oidc_provider = false

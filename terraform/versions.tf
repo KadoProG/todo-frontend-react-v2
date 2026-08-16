@@ -1,0 +1,26 @@
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.70"
+    }
+  }
+
+  # tfstate は S3 に置く。バケット名などは backend.hcl で渡すため空定義にしておく
+  # 初期化: terraform init -backend-config=backend.hcl
+  backend "s3" {}
+}
+
+provider "aws" {
+  region = var.aws_region
+
+  default_tags {
+    tags = {
+      Project     = var.project
+      Environment = var.environment
+      ManagedBy   = "terraform"
+    }
+  }
+}
