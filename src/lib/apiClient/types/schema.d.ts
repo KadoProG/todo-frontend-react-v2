@@ -286,7 +286,7 @@ export interface components {
   schemas: {
     /** LoginCollection */
     LoginCollection: {
-      token: string;
+      token: string[];
     };
     /** LoginRequest */
     LoginRequest: {
@@ -417,18 +417,6 @@ export interface components {
         };
       };
     };
-    /** @description Authorization error */
-    AuthorizationException: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          /** @description Error overview. */
-          message: string;
-        };
-      };
-    };
     /** @description Unauthenticated */
     AuthenticationException: {
       headers: {
@@ -443,6 +431,18 @@ export interface components {
     };
     /** @description Not found */
     ModelNotFoundException: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          /** @description Error overview. */
+          message: string;
+        };
+      };
+    };
+    /** @description Authorization error */
+    AuthorizationException: {
       headers: {
         [name: string]: unknown;
       };
@@ -489,12 +489,11 @@ export interface operations {
         };
         content: {
           'application/json': {
-            /** @example Unauthorized */
-            error: string;
+            /** @constant */
+            error: 'Unauthorized';
           };
         };
       };
-      403: components['responses']['AuthorizationException'];
       422: components['responses']['ValidationException'];
     };
   };
@@ -513,8 +512,8 @@ export interface operations {
         };
         content: {
           'application/json': {
-            /** @example Successfully logged out */
-            message: string;
+            /** @constant */
+            message: 'Successfully logged out';
           };
         };
       };
@@ -576,8 +575,8 @@ export interface operations {
         };
         content: {
           'application/json': {
-            /** @example Token not provided */
-            error: string;
+            /** @constant */
+            error: 'Token not provided';
           };
         };
       };
@@ -587,8 +586,8 @@ export interface operations {
         };
         content: {
           'application/json': {
-            /** @example Could not refresh token */
-            error: string;
+            /** @constant */
+            error: 'Could not refresh token';
             detail: string;
           };
         };
@@ -663,8 +662,8 @@ export interface operations {
         };
         content: {
           'application/json': {
-            /** @example All notifications marked as read */
-            message: string;
+            /** @constant */
+            message: 'All notifications marked as read';
           };
         };
       };
@@ -717,11 +716,11 @@ export interface operations {
         expired_before?: string | null;
         expired_after?: string | null;
         created_user_id?: number | null;
+        'created_user_ids[]'?: number[];
         assigned_user_id?: number | null;
+        'assigned_user_ids[]'?: number[];
         sort_by?: 'title' | 'expired_at' | 'created_at' | 'updated_at' | null;
         sort_order?: 'asc' | 'desc' | null;
-        created_user_ids?: number[] | null;
-        assigned_user_ids?: number[] | null;
       };
       header?: never;
       path?: never;
@@ -740,7 +739,6 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
-      403: components['responses']['AuthorizationException'];
       422: components['responses']['ValidationException'];
     };
   };
@@ -1080,11 +1078,11 @@ export interface operations {
         expired_before?: string | null;
         expired_after?: string | null;
         created_user_id?: number | null;
+        'created_user_ids[]'?: number[];
         assigned_user_id?: number | null;
+        'assigned_user_ids[]'?: number[];
         sort_by?: 'title' | 'expired_at' | 'created_at' | 'updated_at' | null;
         sort_order?: 'asc' | 'desc' | null;
-        created_user_ids?: number[] | null;
-        assigned_user_ids?: number[] | null;
       };
       header?: never;
       path?: never;
@@ -1103,7 +1101,6 @@ export interface operations {
         };
       };
       401: components['responses']['AuthenticationException'];
-      403: components['responses']['AuthorizationException'];
       422: components['responses']['ValidationException'];
     };
   };
