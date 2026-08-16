@@ -15,9 +15,32 @@ data "aws_cloudfront_cache_policy" "disabled" {
   name = "Managed-CachingDisabled"
 }
 
-# AWS マネージドポリシー: AllViewer (ヘッダ・クッキー・クエリを全てオリジンへ渡す)
-data "aws_cloudfront_origin_request_policy" "all_viewer" {
-  name = "Managed-AllViewer"
+# API 転送用のオリジンリクエストポリシー。
+# マネージドポリシーでは要件を満たせないため自前で定義している。
+#   - AllViewer            : Host は保たれるが CloudFront-Forwarded-Proto が届かず、
+#                            Laravel が https を認識できずリダイレクトが http になる
+#   - AllViewerExceptHost  : Proto は届くが Host が ALB のものに差し替わり、
+#                            リダイレクト先に内部ドメインが露出する
+# ビューアの Host を保ったまま、プロトコルを伝えるヘッダだけを追加する。
+resource "aws_cloudfront_origin_request_policy" "api" {
+  name    = "${local.name}-api"
+  comment = "Forward viewer Host and the CloudFront protocol header to the API origin"
+
+  headers_config {
+    header_behavior = "allViewerAndWhitelistCloudFront"
+
+    headers {
+      items = ["CloudFront-Forwarded-Proto"]
+    }
+  }
+
+  cookies_config {
+    cookie_behavior = "all"
+  }
+
+  query_strings_config {
+    query_string_behavior = "all"
+  }
 }
 
 locals {
@@ -115,7 +138,7 @@ resource "aws_cloudfront_distribution" "site" {
       cached_methods           = ["GET", "HEAD"]
       compress                 = true
       cache_policy_id          = data.aws_cloudfront_cache_policy.disabled.id
-      origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewer.id
+      origin_request_policy_id = aws_cloudfront_origin_request_policy.api.id
     }
   }
 
