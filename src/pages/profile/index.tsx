@@ -7,6 +7,7 @@ import { Button } from '@/components/common/button/Button';
 import { TextField } from '@/components/common/input/TextField';
 import { SnackbarContext } from '@/components/Feedback/Snackbar';
 import { AuthContext } from '@/contexts/auth';
+import { IconUploader } from '@/pages/profile/components/IconUploader';
 import { useUserUpdate } from '@/pages/profile/hooks/useUserUpdate';
 
 type ProfileForm = {
@@ -78,6 +79,8 @@ export const ProfilePage: FC = () => {
     <AppLayout>
       <div className="flex flex-col gap-4 px-4 py-2">
         <h1 className="text-3xl">プロフィール</h1>
+        {/* エンドポイントが別なので、名前・メールのフォームとは独立して送信する */}
+        <IconUploader user={user} mutate={authMutate} />
         <form onSubmit={submitForm} className="flex max-w-md flex-col gap-2">
           <TextField
             control={control}

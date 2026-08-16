@@ -263,6 +263,31 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/v1/users/{user}/icon': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * ユーザーアイコンの配信
+     * @description 認証不要。`/api` 配下から返すことで、配信用のインフラを別に用意せずに済ませている。
+     */
+    get: operations['users.icon.show'];
+    put?: never;
+    /**
+     * ユーザーアイコンのアップロード
+     * @description multipart/form-data で `icon` を送る。既にアイコンがある場合は差し替える。
+     */
+    post: operations['userIcon.store'];
+    /** ユーザーアイコンの削除 */
+    delete: operations['userIcon.destroy'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/v1/users/me/tasks': {
     parameters: {
       query?: never;
@@ -379,6 +404,14 @@ export interface components {
       is_done?: boolean;
       assigned_user_ids?: number[] | null;
     };
+    /** UpdateUserIconRequest */
+    UpdateUserIconRequest: {
+      /**
+       * Format: binary
+       * @description Maximum file size: 2048 kilobytes.
+       */
+      icon: string;
+    };
     /** UpdateUserRequest */
     UpdateUserRequest: {
       name?: string;
@@ -394,6 +427,7 @@ export interface components {
       email: string;
       /** Format: date-time */
       email_verified_at: string | null;
+      icon_url: string | null;
       /** Format: date-time */
       created_at: string | null;
       /** Format: date-time */
@@ -417,8 +451,8 @@ export interface components {
         };
       };
     };
-    /** @description Unauthenticated */
-    AuthenticationException: {
+    /** @description Not found */
+    ModelNotFoundException: {
       headers: {
         [name: string]: unknown;
       };
@@ -429,8 +463,8 @@ export interface components {
         };
       };
     };
-    /** @description Not found */
-    ModelNotFoundException: {
+    /** @description Unauthenticated */
+    AuthenticationException: {
       headers: {
         [name: string]: unknown;
       };
@@ -1067,6 +1101,106 @@ export interface operations {
         content?: never;
       };
       401: components['responses']['AuthenticationException'];
+      404: components['responses']['ModelNotFoundException'];
+    };
+  };
+  'users.icon.show': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The user ID */
+        user: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /**
+       * @description URL はユーザーごとに固定で、更新時は icon_url の `?v=` が変わる。
+       *     そのためブラウザには長めにキャッシュさせてよい
+       */
+      200: {
+        headers: {
+          'Transfer-Encoding': 'chunked';
+          [name: string]: unknown;
+        };
+        content: {
+          'application/octet-stream': string;
+        };
+      };
+      404: components['responses']['ModelNotFoundException'];
+    };
+  };
+  'userIcon.store': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The user ID */
+        user: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'multipart/form-data': components['schemas']['UpdateUserIconRequest'];
+      };
+    };
+    responses: {
+      /** @description `UserResource` */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            user: components['schemas']['UserResource'];
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      403: components['responses']['AuthorizationException'];
+      404: components['responses']['ModelNotFoundException'];
+      422: components['responses']['ValidationException'];
+    };
+  };
+  'userIcon.destroy': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The user ID */
+        user: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description `UserResource` */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            user: components['schemas']['UserResource'];
+          };
+        };
+      };
+      401: components['responses']['AuthenticationException'];
+      /** @description Access denied */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @description Error overview. */
+            message: string;
+          };
+        };
+      };
       404: components['responses']['ModelNotFoundException'];
     };
   };
