@@ -36,10 +36,10 @@ export const LoginPage: FC = () => {
           if (!response.response.ok) {
             throw new Error('ログインに失敗しました');
           }
-          if (!response.data?.token) {
+          if (!response.data?.token[0]) {
             throw new Error('予期せぬレスポンスエラー');
           }
-          store.set('token', response.data.token);
+          store.set('token', response.data.token[0]);
           mutate();
           showSnackbar({ message: 'ログインしました', type: 'success' });
         } catch (error) {
