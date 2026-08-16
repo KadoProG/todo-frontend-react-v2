@@ -91,3 +91,31 @@ CloudFront Function（`terraform/cloudfront.tf` の `spa_rewrite`）が viewer-r
 `custom_error_response` で 404 を index.html に寄せる方法を使っていないのは、
 その設定がディストリビューション全体に効き、`/api/*` が返す 404 まで
 HTML に化けてしまうため。
+
+## 停止と削除
+
+こちらのスタックは S3 と CloudFront のみで、常時課金されるリソースは無い。
+アクセス量に応じた従量課金だけなので、個人の学習用途なら月数十円程度に収まる。
+放置しても大きな負担にはならない。
+
+削除する場合は次のとおり。
+
+```bash
+cd terraform
+terraform destroy
+```
+
+S3 バケットにオブジェクトが残っていると削除に失敗する。先に空にする。
+
+```bash
+aws s3 rm "s3://$(terraform output -raw s3_bucket)" --recursive
+```
+
+バージョニングを有効にしているため、これでも「非現行バージョン」が残って
+失敗することがある。その場合はコンソールから空にするのが早い。
+
+CloudFront は削除に 15 分ほどかかる（全エッジロケーションからの撤去を待つため）。
+destroy が長時間止まって見えても、失敗ではないので待つ。
+
+バックエンドだけ削除してこちらを残す場合は、`api_origin_domain` を空にして
+apply し直す。存在しない ALB を指したままだと `/api/*` が 502 を返す。
